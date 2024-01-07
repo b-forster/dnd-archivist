@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Modal from 'react-modal';
-import Header from './Header';
+import { Header } from './components';
 
 Modal.setAppElement(document.getElementById('root'));
 
