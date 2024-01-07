@@ -93,9 +93,21 @@ const RACES = {
     'Shade': {},
 }
 
+const ABILITIES = {
+    'Strength': {},
+    'Dexterity': {},
+    'Constitution': {},
+    'Intelligence': {},
+    'Wisdom': {},
+    'Charisma': {},
+}
+
 const RACES_LIST = Object.keys(RACES);
+const ABILITIES_LIST = Object.keys(ABILITIES);
 
 Object.freeze(RACES);
 Object.freeze(RACES_LIST);
+Object.freeze(ABILITIES);
+Object.freeze(ABILITIES_LIST);
 
-export default { RACES, RACES_LIST };
+export { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST };

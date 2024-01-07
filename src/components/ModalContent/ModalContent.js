@@ -2,9 +2,10 @@ import * as React from 'react';
 import './ModalContent.css';
 import {
     Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
-    DialogTitle, Divider, FormControl, Input, InputLabel, MenuItem,
+    DialogTitle, Divider, FormControl, FormGroup, Input, InputLabel, MenuItem,
     Select, Slider, TextField
 } from '@mui/material';
+import { RACES_LIST, ABILITIES_LIST } from 'constants';
 
 
 function ModalContent() {
@@ -41,27 +42,38 @@ function ModalContent() {
                             label="Race"
                             fullWidth
                         >
-                            <MenuItem value={'human'}>Human</MenuItem>
-                            <MenuItem value={'orc'}>Orc</MenuItem>
+                            {RACES_LIST.map((raceName) => (
+                                <MenuItem
+                                    key={raceName}
+                                    value={raceName}
+                                >
+                                    {raceName}
+                                </MenuItem>
+                            ))}
                         </Select>
                         <Divider />
-                        <InputLabel id="str-input-label">Strength: </InputLabel>
-                        <Input
-                            type="number" id="str-input" labelId="str-input-label" name="stats[strength]"
-                            sx={{ width: '3em' }}
-                        />
-                        &nbsp;
-                        {/* <span class="stat-bonus" id="strength"></span>
+                        {ABILITIES_LIST.map((abilityName) => (
+                            <FormGroup row>
+                                <InputLabel id={`${abilityName}-input-label`} sx={{ margin: ' auto 0' }}>
+                                    {abilityName}:
+                                </InputLabel>
+                                <Input
+                                    type="number" id={`${abilityName}-input`} labelId={`${abilityName}-input-label`} name={`stats[${abilityName}]`}
+                                    sx={{ width: '3em' }}
+                                />
+                                {/* <span class="stat-bonus" id="strength"></span>
                         <button type="button" class="die-img" disabled>20</button> */}
-                        <Slider
-                            aria-label="Strength"
-                            defaultValue={0}
-                            // getAriaValueText={valuetext}
-                            valueLabelDisplay="auto"
-                            min={1}
-                            max={20}
-                            sx={{ width: '10em', verticalAlign: 'middle', marginLeft: '3em' }}
-                        />
+                                <Slider
+                                    aria-label={abilityName}
+                                    defaultValue={0}
+                                    // getAriaValueText={valuetext}
+                                    valueLabelDisplay="auto"
+                                    min={1}
+                                    max={20}
+                                    sx={{ width: '10em', verticalAlign: 'middle', marginLeft: '3em' }}
+                                />
+                            </FormGroup>
+                        ))}
                     </Box>
                 </DialogContent>
                 <DialogActions>
