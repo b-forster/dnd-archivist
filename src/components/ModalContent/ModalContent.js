@@ -5,7 +5,7 @@ import {
     DialogTitle, Divider, FormControl, FormGroup, Input, InputLabel, MenuItem,
     Select, Slider, TextField
 } from '@mui/material';
-import { RACES, RACES_LIST, ABILITIES_LIST } from 'constants';
+import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
 
 
 function ModalContent() {
@@ -122,8 +122,8 @@ function ModalContent() {
                             >
 
                                 <InputLabel
-                                    id={`${abilityName}-input-label`}
-                                    htmlFor={`${abilityName}-input`}
+                                    id={`${ABILITIES[abilityName]['abbr']}-input-label`}
+                                    htmlFor={`${ABILITIES[abilityName]['abbr']}-input`}
                                     sx={{ margin: ' auto 0' }}
                                 >
                                     {abilityName}:
@@ -131,8 +131,8 @@ function ModalContent() {
                                 <Input
                                     type="number"
                                     key={abilityName}
-                                    id={`${abilityName}-input`}
-                                    name={`stats[${abilityName}]`}
+                                    id={`${ABILITIES[abilityName]['abbr']}-input`}
+                                    name={`stats[${ABILITIES[abilityName]['abbr']}]`}
                                     min='0'
                                     max='20'
                                     onChange={() => { }}
@@ -145,7 +145,7 @@ function ModalContent() {
                                 {/* <span class="stat-bonus" id="strength"></span>
                         <button type="button" class="die-img" disabled>20</button> */}
                                 <Slider
-                                    aria-label={abilityName}
+                                    aria-label={ABILITIES[abilityName]['abbr']}
                                     defaultValue={0}
                                     // getAriaValueText={valuetext}
                                     valueLabelDisplay="auto"
