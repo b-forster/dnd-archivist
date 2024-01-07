@@ -5,11 +5,12 @@ import {
     DialogTitle, Divider, FormControl, FormGroup, Input, InputLabel, MenuItem,
     Select, Slider, TextField
 } from '@mui/material';
-import { RACES_LIST, ABILITIES_LIST } from 'constants';
+import { RACES, RACES_LIST, ABILITIES_LIST } from 'constants';
 
 
 function ModalContent() {
-    const [open, setOpen] = React.useState(false);
+    const [isOpen, setOpen] = React.useState(false);
+    const [subraces, setSubraces] = React.useState([]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -19,12 +20,23 @@ function ModalContent() {
         setOpen(false);
     };
 
+    const handleSelectRace = (e) => {
+        let raceName = e.target.value;
+        let subs = RACES[raceName]['subraces']
+        let subNames = subs ? Object.keys(subs) : [];
+        setSubraces(subNames);
+    }
+
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
                 <a>+ Create a Character</a>
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog
+                open={isOpen}
+                onClose={handleClose}
+                maxWidth='lg'
+            >
                 <DialogTitle>Roll a New Character</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -35,12 +47,33 @@ function ModalContent() {
                         noValidate
                         autoComplete="off"
                     >
-                        <InputLabel id="race-dropdown-label">Race:</InputLabel>
+                        <InputLabel
+                            id="name-input-label"
+                            htmlFor="name-input"
+                            sx={{ marginTop: '1em' }}
+                        >
+                            Name:
+                        </InputLabel>
+                        <TextField
+                            id="name-input"
+                            fullWidth
+                            size='small'
+                            required
+                        />
+                        <InputLabel
+                            id="race-dropdown-label"
+                            htmlFor="race-dropdown"
+                            sx={{ marginTop: '1em' }}
+                        >
+                            Race:
+                        </InputLabel>
                         <Select
-                            labelId="race-dropdown-label"
                             id="race-dropdown"
                             label="Race"
+                            onChange={handleSelectRace}
                             fullWidth
+                            size='small'
+                            required
                         >
                             {RACES_LIST.map((raceName) => (
                                 <MenuItem
@@ -51,15 +84,63 @@ function ModalContent() {
                                 </MenuItem>
                             ))}
                         </Select>
-                        <Divider />
+                        {subraces.length ? (
+                            <div id="subrace-form-group">
+                                <InputLabel
+                                    id="subrace-dropdown-label"
+                                    htmlFor="subrace-dropdown"
+                                    sx={{ marginTop: '1em' }}
+                                >
+                                    Subrace (optional):
+                                </InputLabel>
+                                <Select
+                                    id="subrace-dropdown"
+                                    label="Subrace"
+                                    fullWidth
+                                    size='small'
+                                >
+                                    <MenuItem value="" divider>
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {subraces.map((raceName) => (
+                                        <MenuItem
+                                            key={raceName}
+                                            value={raceName}
+                                        >
+                                            {raceName}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </div>
+                        ) : <></>}
                         {ABILITIES_LIST.map((abilityName) => (
-                            <FormGroup row>
-                                <InputLabel id={`${abilityName}-input-label`} sx={{ margin: ' auto 0' }}>
+                            <FormGroup
+                                key={abilityName}
+                                className="abilities-input-row"
+                                row
+                                sx={{ marginTop: '0.5em' }}
+                            >
+
+                                <InputLabel
+                                    id={`${abilityName}-input-label`}
+                                    htmlFor={`${abilityName}-input`}
+                                    sx={{ margin: ' auto 0' }}
+                                >
                                     {abilityName}:
                                 </InputLabel>
                                 <Input
-                                    type="number" id={`${abilityName}-input`} labelId={`${abilityName}-input-label`} name={`stats[${abilityName}]`}
-                                    sx={{ width: '3em' }}
+                                    type="number"
+                                    key={abilityName}
+                                    id={`${abilityName}-input`}
+                                    name={`stats[${abilityName}]`}
+                                    min='0'
+                                    max='20'
+                                    onChange={() => { }}
+                                    sx={{
+                                        width: '3em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
+                                            '1.5em'
+                                    }}
+                                    required
                                 />
                                 {/* <span class="stat-bonus" id="strength"></span>
                         <button type="button" class="die-img" disabled>20</button> */}
@@ -70,7 +151,7 @@ function ModalContent() {
                                     valueLabelDisplay="auto"
                                     min={1}
                                     max={20}
-                                    sx={{ width: '10em', verticalAlign: 'middle', marginLeft: '3em' }}
+                                    sx={{ width: '10em', marginLeft: '3em' }}
                                 />
                             </FormGroup>
                         ))}
