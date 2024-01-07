@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import Modal from 'react-modal';
-import { Header } from './components';
+import { Header, ModalContent } from './components';
 
 Modal.setAppElement(document.getElementById('root'));
 
@@ -29,7 +29,9 @@ function App() {
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Create Character"
-      ></Modal>
+      >
+        <ModalContent />
+      </Modal>
     </div>
   );
 }
