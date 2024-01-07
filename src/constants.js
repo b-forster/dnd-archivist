@@ -93,7 +93,6 @@ const RACES = {
     'Shade': {},
 }
 
-<<<<<<< HEAD
 const ABILITIES = {
     'Strength': {},
     'Dexterity': {},
