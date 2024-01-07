@@ -1,7 +1,6 @@
 import './App.css';
 import { Header, ModalContent } from './components';
 
-
 function App() {
   return (
     <div className="App">
