@@ -2,6 +2,18 @@
     text-align: center;
 }
 
+.abilities-input-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#subrace-form-group {
+    margin-left: 4em;
+}
+
 /* .die-img {
     margin: 5px;
     padding: 1px;

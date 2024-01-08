@@ -1,15 +1,18 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ModalContent.css';
 import {
     Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
     DialogTitle, Divider, FormControl, FormGroup, Input, InputLabel, MenuItem,
     Select, Slider, TextField
 } from '@mui/material';
-import { RACES_LIST, ABILITIES_LIST } from 'constants';
+import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
+import AbilityRow from '../AbilityRow/AbilityRow';
 
 
 function ModalContent() {
-    const [open, setOpen] = React.useState(false);
+    /*** OPENING/CLOSING MODAL ***/
+
+    const [isOpen, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -19,12 +22,64 @@ function ModalContent() {
         setOpen(false);
     };
 
+    /*** UPDATING RACE/SUBCLASS AND ASSOCIATED ABILITY MODIFIERS ***/
+
+    let initialAbilityModifiers = Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
+    const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
+    const [race, setRace] = useState('');
+    const [subrace, setSubrace] = useState('');
+
+    const handleSelectRace = (e) => {
+        let raceName = e.target.value;
+        setRace(raceName);
+    }
+
+    const handleSelectSubrace = (e) => {
+        let subraceName = e.target.value;
+        setSubrace(subraceName);
+    }
+
+    const updateAbilityModifiers = (modifiersArr) => {
+        let newModifiersObj = { ...initialAbilityModifiers };
+        for (let modifierObj of modifiersArr) {
+            let abilityName = modifierObj?.['attr']
+            if (ABILITIES[abilityName]) {
+                newModifiersObj[abilityName] = newModifiersObj[abilityName] + modifierObj['value'];
+            } else {
+                // TODO: Handle case where user can select which ability to modify (abilityName = 'Any')
+            }
+        }
+        setAbilityModifiers(newModifiersObj);
+    }
+
+    // Update combined race+subrace ability modifiers when either state changes
+    useEffect(() => {
+        let raceModifiers = RACES[race]?.['modifiers'] || [];
+        let subraceModifiers = RACES[race]?.['subraces']?.[subrace]?.['modifiers'] || [];
+
+        updateAbilityModifiers([...raceModifiers, ...subraceModifiers])
+    }, [race, subrace])
+
+    /*** HELPER FUNCTIONS ***/
+
+    const getSubraces = () => {
+        let subraces = RACES[race]?.['subraces']
+        return subraces ? Object.keys(subraces) : [];
+    }
+
+    /****** RETURN JSX ******/
+
+
     return (
         <React.Fragment>
             <Button variant="outlined" onClick={handleClickOpen}>
                 <a>+ Create a Character</a>
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog
+                open={isOpen}
+                onClose={handleClose}
+                maxWidth='lg'
+            >
                 <DialogTitle>Roll a New Character</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -35,12 +90,34 @@ function ModalContent() {
                         noValidate
                         autoComplete="off"
                     >
-                        <InputLabel id="race-dropdown-label">Race:</InputLabel>
+                        <InputLabel
+                            id="name-input-label"
+                            htmlFor="name-input"
+                            sx={{ marginTop: '1em' }}
+                        >
+                            Name:
+                        </InputLabel>
+                        <TextField
+                            id="name-input"
+                            fullWidth
+                            size='small'
+                            required
+                        />
+                        <InputLabel
+                            id="race-dropdown-label"
+                            htmlFor="race-dropdown"
+                            sx={{ marginTop: '1em' }}
+                        >
+                            Race:
+                        </InputLabel>
                         <Select
-                            labelId="race-dropdown-label"
                             id="race-dropdown"
                             label="Race"
+                            value={race}
+                            onChange={handleSelectRace}
                             fullWidth
+                            size='small'
+                            required
                         >
                             {RACES_LIST.map((raceName) => (
                                 <MenuItem
@@ -51,28 +128,38 @@ function ModalContent() {
                                 </MenuItem>
                             ))}
                         </Select>
-                        <Divider />
-                        {ABILITIES_LIST.map((abilityName) => (
-                            <FormGroup row>
-                                <InputLabel id={`${abilityName}-input-label`} sx={{ margin: ' auto 0' }}>
-                                    {abilityName}:
+                        {getSubraces().length ? (
+                            <div id="subrace-form-group">
+                                <InputLabel
+                                    id="subrace-dropdown-label"
+                                    htmlFor="subrace-dropdown"
+                                    sx={{ marginTop: '1em' }}
+                                >
+                                    Subrace (optional):
                                 </InputLabel>
-                                <Input
-                                    type="number" id={`${abilityName}-input`} labelId={`${abilityName}-input-label`} name={`stats[${abilityName}]`}
-                                    sx={{ width: '3em' }}
-                                />
-                                {/* <span class="stat-bonus" id="strength"></span>
-                        <button type="button" class="die-img" disabled>20</button> */}
-                                <Slider
-                                    aria-label={abilityName}
-                                    defaultValue={0}
-                                    // getAriaValueText={valuetext}
-                                    valueLabelDisplay="auto"
-                                    min={1}
-                                    max={20}
-                                    sx={{ width: '10em', verticalAlign: 'middle', marginLeft: '3em' }}
-                                />
-                            </FormGroup>
+                                <Select
+                                    id="subrace-dropdown"
+                                    label="Subrace"
+                                    fullWidth
+                                    size='small'
+                                    onChange={(e) => handleSelectSubrace(e)}
+                                >
+                                    <MenuItem value="" divider>
+                                        <em>None</em>
+                                    </MenuItem>
+                                    {getSubraces().map((raceName) => (
+                                        <MenuItem
+                                            key={raceName}
+                                            value={raceName}
+                                        >
+                                            {raceName}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </div>
+                        ) : <></>}
+                        {ABILITIES_LIST.map((abilityName) => (
+                            <AbilityRow name={abilityName} key={abilityName} />
                         ))}
                     </Box>
                 </DialogContent>
