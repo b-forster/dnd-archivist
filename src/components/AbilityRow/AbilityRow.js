@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AbilityRow.css';
-import { useEffect, useState } from 'react';
 import { ABILITIES } from 'constants';
 import {
     Input, InputLabel, Slider,
@@ -32,6 +31,38 @@ function AbilityRow({ name, modifier }) {
         setInputVal(sliderVal - modifier);
     };
 
+    const handleDiceClick = () => {
+        // Roll for stat: 
+        // 1. Roll 4 x 6-sided dice
+        // 2. Drop lowest number
+        // 3. Add remaining total
+        const NUM_DIE_SIDES = 6;
+        const NUM_ROLLS = 4;
+        let dieRolls = [];
+
+        while (dieRolls.length < NUM_ROLLS) {
+            let dieRoll = Math.ceil(Math.random() * NUM_DIE_SIDES);
+            dieRolls.push(dieRoll);
+        }
+
+        let dieRollsDropLowest = dieRolls.sort().slice(1, NUM_ROLLS);
+
+        let dieRollsTotal = dieRollsDropLowest.reduce((total, current) => {
+            return total + current;
+        }, 0);
+
+        setInputVal(dieRollsTotal);
+    };
+
+
+    useEffect(() => {
+        setModifiedVal(inputVal + modifier);
+    }, [modifier]);
+
+    useEffect(() => {
+        setModifiedVal(inputVal + modifier);
+    }, [inputVal]);
+
     return (
         <div className="abilities-input-row">
             <InputLabel
@@ -41,24 +72,26 @@ function AbilityRow({ name, modifier }) {
                 {abilityName}:
             </InputLabel>
 
+            <a className="d20-img-link" onClick={handleDiceClick}>
+                <img src="images/d20.png" />
+            </a>
+
             <Input
                 type="number"
                 id={`${abbr}-input`}
                 name={`stats[${abbr}]`}
                 value={inputVal}
+                defaultValue={0}
                 min={0}
                 max={20}
                 onChange={handleChangeInputVal}
                 sx={{
-                    width: '3em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
+                    width: '2em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
                         '1.5em',
                 }}
                 size='small'
                 required
             />
-
-            {/* <span class="stat-modifier" id="strength"></span>
-        <button type="button" class="die-img" disabled>20</button> */}
 
             <span className='ability-modifier-text'>
                 {formatModifierString()}

@@ -10,3 +10,14 @@ body {
   text-align: center;
   height: 100vh;
 }
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  font-size: small;
+  font-variant: small-caps;
+  position: absolute;
+  bottom: 2em;
+}

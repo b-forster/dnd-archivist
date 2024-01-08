@@ -4,6 +4,9 @@ import './Header.css';
 function Header() {
     return (
         <header>
+            <figure id='logo-img'>
+                <img src="logo192.png" alt="Parchment icon with a drawing of an Egyptian-style eye" />
+            </figure>
             <h1>Archivist</h1>
             <h2>
                 A Character Leveling Companion App<br />
