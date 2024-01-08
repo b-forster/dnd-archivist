@@ -2,7 +2,7 @@
 
 const RACES = {
     'Dwarf': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Constitution',
                 'value': 2
@@ -10,7 +10,7 @@ const RACES = {
         ],
         'subraces': {
             'Hill Dwarf': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Wisdom',
                         'value': 1
@@ -20,7 +20,7 @@ const RACES = {
         },
     },
     'Elf': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Dexterity',
                 'value': 2
@@ -28,7 +28,7 @@ const RACES = {
         ],
         'subraces': {
             'High Elf': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Intelligence',
                         'value': 1
@@ -38,7 +38,7 @@ const RACES = {
         }
     },
     'Halfling': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Dexterity',
                 'value': 2
@@ -46,7 +46,7 @@ const RACES = {
         ],
         'subraces': {
             'Stoor Halfling': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Constitution',
                         'value': 1
@@ -54,7 +54,7 @@ const RACES = {
                 ],
             },
             'Lightfoot': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Charisma',
                         'value': 1
@@ -64,7 +64,7 @@ const RACES = {
         }
     },
     'Human': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Strength',
                 'value': 1
@@ -92,7 +92,7 @@ const RACES = {
         ],
     },
     'Dragonborn': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Strength',
                 'value': 2
@@ -104,7 +104,7 @@ const RACES = {
         ],
     },
     'Gnome': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Intelligence',
                 'value': 2
@@ -112,7 +112,7 @@ const RACES = {
         ],
         'subraces': {
             'Rock Gnome': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Constitution',
                         'value': 1
@@ -122,7 +122,7 @@ const RACES = {
         }
     },
     'Half-Elf': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Charisma',
                 'value': 2
@@ -138,7 +138,7 @@ const RACES = {
         ],
     },
     'Half-Orc': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Strength',
                 'value': 2
@@ -150,7 +150,7 @@ const RACES = {
         ],
     },
     'Tiefling': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Intelligence',
                 'value': 1
@@ -162,7 +162,7 @@ const RACES = {
         ],
     },
     'Alseid': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Dexterity',
                 'value': 2
@@ -174,7 +174,7 @@ const RACES = {
         ],
     },
     'Catfolk': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Dexterity',
                 'value': 2
@@ -182,7 +182,7 @@ const RACES = {
         ],
         'subraces': {
             'Malkin': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Intelligence',
                         'value': 1
@@ -190,7 +190,7 @@ const RACES = {
                 ],
             },
             'Pantheran': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Wisdom',
                         'value': 1
@@ -200,7 +200,7 @@ const RACES = {
         }
     },
     'Darakhul': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Constitution',
                 'value': 1
@@ -208,7 +208,7 @@ const RACES = {
         ],
         'subraces': {
             'Derro Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Charisma',
                         'value': 2
@@ -216,7 +216,7 @@ const RACES = {
                 ],
             },
             'Dragonborn Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Strength',
                         'value': 2
@@ -224,7 +224,7 @@ const RACES = {
                 ],
             },
             'Drow Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Intelligence',
                         'value': 2
@@ -232,7 +232,7 @@ const RACES = {
                 ],
             },
             'Dwarf Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Wisdom',
                         'value': 2
@@ -240,7 +240,7 @@ const RACES = {
                 ],
             },
             'Elf Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Dexterity',
                         'value': 2
@@ -248,7 +248,7 @@ const RACES = {
                 ],
             },
             'Gnome Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Intelligence',
                         'value': 2
@@ -256,7 +256,7 @@ const RACES = {
                 ],
             },
             'Half-Elf Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Any',
                         'value': 2
@@ -264,7 +264,7 @@ const RACES = {
                 ],
             },
             'Halfling Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Dexterity',
                         'value': 2
@@ -272,7 +272,7 @@ const RACES = {
                 ],
             },
             'Human Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Any',
                         'value': 2
@@ -280,7 +280,7 @@ const RACES = {
                 ],
             },
             'Kobold Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Intelligence',
                         'value': 2
@@ -288,14 +288,14 @@ const RACES = {
                 ],
             },
             'Ravenfolk': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Dexterity',
                         'value': 2
                     }]
             },
             'Shadow Fey Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Dexterity',
                         'value': 2
@@ -303,7 +303,7 @@ const RACES = {
                 ],
             },
             'Tiefling Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Charisma',
                         'value': 1
@@ -311,7 +311,7 @@ const RACES = {
                 ],
             },
             'Trollkin Heritage': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Strength',
                         'value': 2
@@ -322,7 +322,7 @@ const RACES = {
         }
     },
     'Derro': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Dexterity',
                 'value': 2
@@ -330,7 +330,7 @@ const RACES = {
         ],
         'subraces': {
             'Far-Touched': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Charisma',
                         'value': 1
@@ -338,7 +338,7 @@ const RACES = {
                 ],
             },
             'Mutated': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Strength',
                         'value': 1
@@ -346,7 +346,7 @@ const RACES = {
                 ],
             },
             'Uncorrupted': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Wisdom',
                         'value': 1
@@ -356,7 +356,7 @@ const RACES = {
         }
     },
     'Drow': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Intelligence',
                 'value': 2
@@ -364,7 +364,7 @@ const RACES = {
         ],
         'subraces': {
             'Delver': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Strength',
                         'value': 1
@@ -376,7 +376,7 @@ const RACES = {
                 ],
             },
             'Fever-Bit': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Constitution',
                         'value': 1
@@ -384,7 +384,7 @@ const RACES = {
                 ],
             },
             'Purified': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Charisma',
                         'value': 1
@@ -394,7 +394,7 @@ const RACES = {
         }
     },
     'Erina': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Dexterity',
                 'value': 2
@@ -402,7 +402,7 @@ const RACES = {
         ],
     },
     'Gearforged': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Any',
                 'value': 1
@@ -413,7 +413,7 @@ const RACES = {
             }],
         'subraces': {
             'Dwarf Chassis': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Constitution',
                         'value': 1
@@ -421,7 +421,7 @@ const RACES = {
                 ],
             },
             'Gnome Chassis': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Intelligence',
                         'value': 1
@@ -429,7 +429,7 @@ const RACES = {
                 ],
             },
             'Human Chassis': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Any',
                         'value': 1
@@ -437,7 +437,7 @@ const RACES = {
                 ],
             },
             'Kobold Chassis': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Dexterity',
                         'value': 1
@@ -447,7 +447,7 @@ const RACES = {
         }
     },
     'Minotaur': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Strength',
                 'value': 2
@@ -459,7 +459,7 @@ const RACES = {
         ],
         'subraces': {
             'Bhain Kwai': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Constitution',
                         'value': 2
@@ -471,7 +471,7 @@ const RACES = {
                 ],
             },
             'Boghaid': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Wisdom',
                         'value': 2
@@ -485,7 +485,7 @@ const RACES = {
         },
     },
     'Mushroomfolk': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Wisdom',
                 'value': 2
@@ -493,7 +493,7 @@ const RACES = {
         ],
         'subraces': {
             'Acid Cap': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Strength',
                         'value': 1
@@ -501,7 +501,7 @@ const RACES = {
                 ],
             },
             'Favored': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Charisma',
                         'value': 1
@@ -509,7 +509,7 @@ const RACES = {
                 ],
             },
             'Morel': {
-                'bonuses': [
+                'modifiers': [
                     {
                         'attr': 'Dexterity',
                         'value': 1
@@ -519,7 +519,7 @@ const RACES = {
         },
     },
     'Satarre': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Constitution',
                 'value': 2
@@ -531,7 +531,7 @@ const RACES = {
         ],
     },
     'Shade': {
-        'bonuses': [
+        'modifiers': [
             {
                 'attr': 'Charisma',
                 'value': 1

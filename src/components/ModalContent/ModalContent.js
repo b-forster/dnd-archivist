@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import './ModalContent.css';
 import {
     Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
@@ -9,8 +9,9 @@ import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
 
 
 function ModalContent() {
-    const [isOpen, setOpen] = React.useState(false);
-    const [subraces, setSubraces] = React.useState([]);
+    /*** OPENING/CLOSING MODAL ***/
+
+    const [isOpen, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -20,12 +21,55 @@ function ModalContent() {
         setOpen(false);
     };
 
+    /*** UPDATING RACE/SUBCLASS AND ASSOCIATED ABILITY MODIFIERS ***/
+
+    let initialAbilityModifiers = Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
+    const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
+    const [race, setRace] = useState('');
+    const [subrace, setSubrace] = useState('');
+
     const handleSelectRace = (e) => {
         let raceName = e.target.value;
-        let subs = RACES[raceName]['subraces']
-        let subNames = subs ? Object.keys(subs) : [];
-        setSubraces(subNames);
+        setRace(raceName);
     }
+
+    const handleSelectSubrace = (e) => {
+        let subraceName = e.target.value;
+        setSubrace(subraceName);
+    }
+
+    const updateAbilityModifiers = (modifiersArr) => {
+        console.log(modifiersArr)
+        let newModifiersObj = { ...initialAbilityModifiers };
+        for (let modifierObj of modifiersArr) {
+            let abilityName = modifierObj?.['attr']
+            if (ABILITIES[abilityName]) {
+                newModifiersObj[abilityName] = newModifiersObj[abilityName] + modifierObj['value'];
+            } else {
+                // TODO: Handle case where user can select which ability to modify (abilityName = 'Any')
+            }
+        }
+        console.log(newModifiersObj)
+        setAbilityModifiers(newModifiersObj);
+    }
+
+    // Update combined race+subrace ability modifiers when either state changes
+    useEffect(() => {
+        let raceModifiers = RACES[race]?.['modifiers'] || [];
+        let subraceModifiers = RACES[race]?.['subraces']?.[subrace]?.['modifiers'] || [];
+
+        updateAbilityModifiers([...raceModifiers, ...subraceModifiers])
+    }, [race, subrace])
+
+    /*** HELPER FUNCTIONS ***/
+
+    const getSubraces = () => {
+        let subraces = RACES[race]?.['subraces']
+        return subraces ? Object.keys(subraces) : [];
+    }
+
+    /****** RETURN JSX ******/
+
 
     return (
         <React.Fragment>
@@ -70,6 +114,7 @@ function ModalContent() {
                         <Select
                             id="race-dropdown"
                             label="Race"
+                            value={race}
                             onChange={handleSelectRace}
                             fullWidth
                             size='small'
@@ -84,7 +129,7 @@ function ModalContent() {
                                 </MenuItem>
                             ))}
                         </Select>
-                        {subraces.length ? (
+                        {getSubraces().length ? (
                             <div id="subrace-form-group">
                                 <InputLabel
                                     id="subrace-dropdown-label"
@@ -98,11 +143,12 @@ function ModalContent() {
                                     label="Subrace"
                                     fullWidth
                                     size='small'
+                                    onChange={(e) => handleSelectSubrace(e)}
                                 >
                                     <MenuItem value="" divider>
                                         <em>None</em>
                                     </MenuItem>
-                                    {subraces.map((raceName) => (
+                                    {getSubraces().map((raceName) => (
                                         <MenuItem
                                             key={raceName}
                                             value={raceName}
@@ -133,6 +179,7 @@ function ModalContent() {
                                     key={abilityName}
                                     id={`${ABILITIES[abilityName]['abbr']}-input`}
                                     name={`stats[${ABILITIES[abilityName]['abbr']}]`}
+                                    // value={}
                                     min='0'
                                     max='20'
                                     onChange={() => { }}
@@ -142,7 +189,7 @@ function ModalContent() {
                                     }}
                                     required
                                 />
-                                {/* <span class="stat-bonus" id="strength"></span>
+                                {/* <span class="stat-modifier" id="strength"></span>
                         <button type="button" class="die-img" disabled>20</button> */}
                                 <Slider
                                     aria-label={ABILITIES[abilityName]['abbr']}
