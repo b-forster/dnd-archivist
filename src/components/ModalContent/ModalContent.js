@@ -6,6 +6,7 @@ import {
     Select, Slider, TextField
 } from '@mui/material';
 import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
+import AbilityRow from '../AbilityRow/AbilityRow';
 
 
 function ModalContent() {
@@ -39,7 +40,6 @@ function ModalContent() {
     }
 
     const updateAbilityModifiers = (modifiersArr) => {
-        console.log(modifiersArr)
         let newModifiersObj = { ...initialAbilityModifiers };
         for (let modifierObj of modifiersArr) {
             let abilityName = modifierObj?.['attr']
@@ -49,7 +49,6 @@ function ModalContent() {
                 // TODO: Handle case where user can select which ability to modify (abilityName = 'Any')
             }
         }
-        console.log(newModifiersObj)
         setAbilityModifiers(newModifiersObj);
     }
 
@@ -160,47 +159,7 @@ function ModalContent() {
                             </div>
                         ) : <></>}
                         {ABILITIES_LIST.map((abilityName) => (
-                            <FormGroup
-                                key={abilityName}
-                                className="abilities-input-row"
-                                row
-                                sx={{ marginTop: '0.5em' }}
-                            >
-
-                                <InputLabel
-                                    id={`${ABILITIES[abilityName]['abbr']}-input-label`}
-                                    htmlFor={`${ABILITIES[abilityName]['abbr']}-input`}
-                                    sx={{ margin: ' auto 0' }}
-                                >
-                                    {abilityName}:
-                                </InputLabel>
-                                <Input
-                                    type="number"
-                                    key={abilityName}
-                                    id={`${ABILITIES[abilityName]['abbr']}-input`}
-                                    name={`stats[${ABILITIES[abilityName]['abbr']}]`}
-                                    // value={}
-                                    min='0'
-                                    max='20'
-                                    onChange={() => { }}
-                                    sx={{
-                                        width: '3em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
-                                            '1.5em'
-                                    }}
-                                    required
-                                />
-                                {/* <span class="stat-modifier" id="strength"></span>
-                        <button type="button" class="die-img" disabled>20</button> */}
-                                <Slider
-                                    aria-label={ABILITIES[abilityName]['abbr']}
-                                    defaultValue={0}
-                                    // getAriaValueText={valuetext}
-                                    valueLabelDisplay="auto"
-                                    min={1}
-                                    max={20}
-                                    sx={{ width: '10em', marginLeft: '3em' }}
-                                />
-                            </FormGroup>
+                            <AbilityRow name={abilityName} key={abilityName} />
                         ))}
                     </Box>
                 </DialogContent>
