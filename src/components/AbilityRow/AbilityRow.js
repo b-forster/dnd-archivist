@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './AbilityRow.css';
 import { useEffect, useState } from 'react';
 import { ABILITIES } from 'constants';
@@ -5,31 +6,31 @@ import {
     Input, InputLabel, Slider,
 } from '@mui/material';
 
-function AbilityRow(props) {
+
+function AbilityRow({ name, modifier }) {
     const [inputVal, setInputVal] = useState(0);
     const [modifiedVal, setModifiedVal] = useState(0);
-    let modifier = props.modifier || 0;
 
-    let abilityName = props.name;
+    let abilityName = name;
     if (!ABILITIES[abilityName]) return;
 
     let abbr = ABILITIES[abilityName].abbr;
 
     const formatModifierString = () => {
         return (modifier > 0) ? `+${modifier}` : '';
-    }
+    };
 
     const handleChangeInputVal = (e) => {
         let inputVal = parseInt(e.target.value);
         setInputVal(inputVal);
         setModifiedVal(inputVal + modifier);
-    }
+    };
 
     const handleChangeSliderVal = (e) => {
         let sliderVal = e.target.value;
         setModifiedVal(sliderVal);
         setInputVal(sliderVal - modifier);
-    }
+    };
 
     return (
         <div className="abilities-input-row">
@@ -75,7 +76,13 @@ function AbilityRow(props) {
                 sx={{ width: '10em', marginLeft: '1em' }}
             />
         </div>
-    )
+    );
 }
+
+// TODO: Convert project to ts?
+// AbilityRow.propTypes = {
+//     name: React.PropTypes.string.isRequired,
+//     modifier: React.PropTypes.number,
+// };
 
 export default AbilityRow;

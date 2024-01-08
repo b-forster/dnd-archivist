@@ -538,7 +538,22 @@ const RACES = {
             }
         ],
     },
-}
+};
+
+const CLASSES = {
+    'Barbarian': {},
+    'Bard': {},
+    'Cleric': {},
+    'Druid': {},
+    'Fighter': {},
+    'Monk': {},
+    'Paladin': {},
+    'Ranger': {},
+    'Rogue': {},
+    'Sorcerer': {},
+    'Warlock': {},
+    'Wizard': {},
+};
 
 const ABILITIES = {
     'Strength': {
@@ -559,14 +574,21 @@ const ABILITIES = {
     'Charisma': {
         abbr: 'cha',
     },
-}
+};
 
 const RACES_LIST = Object.keys(RACES);
 const ABILITIES_LIST = Object.keys(ABILITIES);
+const CLASSES_LIST = Object.keys(CLASSES);
 
 Object.freeze(RACES);
 Object.freeze(RACES_LIST);
 Object.freeze(ABILITIES);
 Object.freeze(ABILITIES_LIST);
+Object.freeze(CLASSES);
+Object.freeze(CLASSES_LIST);
 
-export { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST };
+export {
+    RACES, RACES_LIST,
+    ABILITIES, ABILITIES_LIST,
+    CLASSES, CLASSES_LIST
+};
