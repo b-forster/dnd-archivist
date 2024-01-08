@@ -1,0 +1,12 @@
+.abilities-input-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: end;
+}
+
+.ability-modifier-text {
+    color: gold;
+    font-size: small;
+    width: 2em;
+    padding: 0.7em;
+}

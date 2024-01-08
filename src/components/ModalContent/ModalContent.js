@@ -32,6 +32,7 @@ function ModalContent() {
     const handleSelectRace = (e) => {
         let raceName = e.target.value;
         setRace(raceName);
+        setSubrace('');
     }
 
     const handleSelectSubrace = (e) => {
@@ -140,6 +141,7 @@ function ModalContent() {
                                 <Select
                                     id="subrace-dropdown"
                                     label="Subrace"
+                                    value={subrace}
                                     fullWidth
                                     size='small'
                                     onChange={(e) => handleSelectSubrace(e)}
@@ -158,9 +160,18 @@ function ModalContent() {
                                 </Select>
                             </div>
                         ) : <></>}
-                        {ABILITIES_LIST.map((abilityName) => (
-                            <AbilityRow name={abilityName} key={abilityName} />
-                        ))}
+                        <FormGroup
+                            sx={{ marginTop: '0.5em' }}
+                        >
+                            {ABILITIES_LIST.map((abilityName) => (
+                                <AbilityRow
+                                    name={abilityName}
+                                    key={abilityName}
+                                    modifier={abilityModifiers[abilityName]}
+                                />
+                            ))}
+                        </FormGroup>
+
                     </Box>
                 </DialogContent>
                 <DialogActions>
