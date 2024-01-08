@@ -2,7 +2,7 @@ h1 {
     font-family: 'Lugrasimo', cursive;
     font-size: 6em;
     font-style: normal;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 h2 {
@@ -10,4 +10,11 @@ h2 {
     font-weight: normal;
     font-style: italic;
     margin-top: 0;
+    margin-bottom: 2em;
+}
+
+#logo-img img {
+    display: inline-block;
+    width: 10em;
+    margin: 0;
 }

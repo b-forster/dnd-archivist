@@ -49,11 +49,12 @@ function AbilityRow({ name, modifier }) {
                 id={`${abbr}-input`}
                 name={`stats[${abbr}]`}
                 value={inputVal}
+                defaultValue={0}
                 min={0}
                 max={20}
                 onChange={handleChangeInputVal}
                 sx={{
-                    width: '3em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
+                    width: '2em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
                         '1.5em',
                 }}
                 size='small'
