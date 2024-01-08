@@ -4,7 +4,7 @@ import {
     Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
     DialogTitle, FormGroup, InputLabel, MenuItem, Select, TextField
 } from '@mui/material';
-import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
+import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST, CLASSES_LIST } from 'constants';
 import AbilityRow from '../AbilityRow/AbilityRow';
 
 
@@ -27,6 +27,7 @@ function ModalContent() {
     const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
     const [race, setRace] = useState('');
     const [subrace, setSubrace] = useState('');
+    const [pclass, setPclass] = useState('');
 
     const handleSelectRace = (e) => {
         let raceName = e.target.value;
@@ -158,6 +159,30 @@ function ModalContent() {
                                 </Select>
                             </div>
                         ) : <></>}
+                        <InputLabel
+                            id="class-dropdown-label"
+                            htmlFor="class-dropdown"
+                            sx={{ marginTop: '1em' }}
+                        >
+                            Class:
+                        </InputLabel>
+                        <Select
+                            id="class-dropdown"
+                            value={pclass}
+                            onChange={(e) => setPclass(e.target.value)}
+                            fullWidth
+                            size='small'
+                            required
+                        >
+                            {CLASSES_LIST.map((className) => (
+                                <MenuItem
+                                    key={className}
+                                    value={className}
+                                >
+                                    {className}
+                                </MenuItem>
+                            ))}
+                        </Select>
                         <FormGroup
                             sx={{ marginTop: '0.5em' }}
                         >
@@ -177,7 +202,7 @@ function ModalContent() {
                     <Button onClick={handleClose}>Save & Close</Button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
+        </React.Fragment >
     );
 }
 
