@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AbilityRow.css';
 import { ABILITIES } from 'constants';
 import {
@@ -30,6 +30,10 @@ function AbilityRow({ name, modifier }) {
         setModifiedVal(sliderVal);
         setInputVal(sliderVal - modifier);
     };
+
+    useEffect(() => {
+        setModifiedVal(inputVal + modifier);
+    }, [modifier]);
 
     return (
         <div className="abilities-input-row">
