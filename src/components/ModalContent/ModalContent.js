@@ -159,6 +159,7 @@ function ModalContent() {
                                 </Select>
                             </div>
                         ) : <></>}
+
                         <InputLabel
                             id="class-dropdown-label"
                             htmlFor="class-dropdown"
@@ -183,6 +184,7 @@ function ModalContent() {
                                 </MenuItem>
                             ))}
                         </Select>
+
                         <FormGroup
                             sx={{ marginTop: '0.5em' }}
                         >
