@@ -1,57 +1,80 @@
-// import './AbilityRow.css';
+import './AbilityRow.css';
+import { useEffect, useState } from 'react';
 import { ABILITIES } from 'constants';
 import {
-    FormGroup, Input, InputLabel, Slider
+    Input, InputLabel, Slider,
 } from '@mui/material';
 
 function AbilityRow(props) {
+    const [inputVal, setInputVal] = useState(0);
+    const [modifiedVal, setModifiedVal] = useState(0);
+    let modifier = props.modifier || 0;
+
     let abilityName = props.name;
     if (!ABILITIES[abilityName]) return;
 
-    let abbr = ABILITIES[abilityName].abbr
+    let abbr = ABILITIES[abilityName].abbr;
 
-    console.log(ABILITIES[abilityName], abbr)
+    const formatModifierString = () => {
+        return (modifier > 0) ? `+${modifier}` : '';
+    }
+
+    const handleChangeInputVal = (e) => {
+        let inputVal = parseInt(e.target.value);
+        setInputVal(inputVal);
+        setModifiedVal(inputVal + modifier);
+    }
+
+    const handleChangeSliderVal = (e) => {
+        let sliderVal = e.target.value;
+        setModifiedVal(sliderVal);
+        setInputVal(sliderVal - modifier);
+    }
+
     return (
-        <FormGroup
-            key={abilityName}
-            className="abilities-input-row"
-            row
-            sx={{ marginTop: '0.5em' }}
-        >
-
+        <div className="abilities-input-row">
             <InputLabel
                 id={`${abbr}-input-label`}
                 htmlFor={`${abbr}-input`}
-                sx={{ margin: 'auto 0' }}
             >
                 {abilityName}:
             </InputLabel>
+
             <Input
                 type="number"
                 id={`${abbr}-input`}
                 name={`stats[${abbr}]`}
-                // value={}
-                min='0'
-                max='20'
-                onChange={() => { }}
+                value={inputVal}
+                min={0}
+                max={20}
+                onChange={handleChangeInputVal}
                 sx={{
                     width: '3em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
-                        '1.5em'
+                        '1.5em',
                 }}
+                size='small'
                 required
             />
+
             {/* <span class="stat-modifier" id="strength"></span>
         <button type="button" class="die-img" disabled>20</button> */}
+
+            <span className='ability-modifier-text'>
+                {formatModifierString()}
+            </span>
+
             <Slider
-                aria-label={abilityName}
                 defaultValue={0}
-                // getAriaValueText={valuetext}
+                value={modifiedVal}
+                onChange={handleChangeSliderVal}
                 valueLabelDisplay="auto"
+                aria-label={abilityName}
+                getAriaValueText={() => { return modifiedVal.toString(); }}
                 min={1}
                 max={20}
-                sx={{ width: '10em', marginLeft: '3em' }}
+                sx={{ width: '10em', marginLeft: '1em' }}
             />
-        </FormGroup>
+        </div>
     )
 }
 
