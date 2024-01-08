@@ -538,7 +538,7 @@ const RACES = {
             }
         ],
     },
-}
+};
 
 const ABILITIES = {
     'Strength': {
@@ -559,7 +559,7 @@ const ABILITIES = {
     'Charisma': {
         abbr: 'cha',
     },
-}
+};
 
 const RACES_LIST = Object.keys(RACES);
 const ABILITIES_LIST = Object.keys(ABILITIES);

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ModalContent.css';
 import {
     Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
-    DialogTitle, Divider, FormControl, FormGroup, Input, InputLabel, MenuItem,
-    Select, Slider, TextField
+    DialogTitle, FormGroup, InputLabel, MenuItem, Select, TextField
 } from '@mui/material';
 import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
 import AbilityRow from '../AbilityRow/AbilityRow';
@@ -33,17 +32,17 @@ function ModalContent() {
         let raceName = e.target.value;
         setRace(raceName);
         setSubrace('');
-    }
+    };
 
     const handleSelectSubrace = (e) => {
         let subraceName = e.target.value;
         setSubrace(subraceName);
-    }
+    };
 
     const updateAbilityModifiers = (modifiersArr) => {
         let newModifiersObj = { ...initialAbilityModifiers };
         for (let modifierObj of modifiersArr) {
-            let abilityName = modifierObj?.['attr']
+            let abilityName = modifierObj?.['attr'];
             if (ABILITIES[abilityName]) {
                 newModifiersObj[abilityName] = newModifiersObj[abilityName] + modifierObj['value'];
             } else {
@@ -51,22 +50,22 @@ function ModalContent() {
             }
         }
         setAbilityModifiers(newModifiersObj);
-    }
+    };
 
     // Update combined race+subrace ability modifiers when either state changes
     useEffect(() => {
         let raceModifiers = RACES[race]?.['modifiers'] || [];
         let subraceModifiers = RACES[race]?.['subraces']?.[subrace]?.['modifiers'] || [];
 
-        updateAbilityModifiers([...raceModifiers, ...subraceModifiers])
-    }, [race, subrace])
+        updateAbilityModifiers([...raceModifiers, ...subraceModifiers]);
+    }, [race, subrace]);
 
     /*** HELPER FUNCTIONS ***/
 
     const getSubraces = () => {
-        let subraces = RACES[race]?.['subraces']
+        let subraces = RACES[race]?.['subraces'];
         return subraces ? Object.keys(subraces) : [];
-    }
+    };
 
     /****** RETURN JSX ******/
 
@@ -84,7 +83,7 @@ function ModalContent() {
                 <DialogTitle>Roll a New Character</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Enter your character's description and attributes below.
+                        Enter your character&apos;s description and attributes below.
                     </DialogContentText>
                     <Box
                         component="form"
@@ -166,7 +165,7 @@ function ModalContent() {
                                 <AbilityRow
                                     name={abilityName}
                                     key={abilityName}
-                                    modifier={abilityModifiers[abilityName]}
+                                    modifier={abilityModifiers[abilityName] || 0}
                                 />
                             ))}
                         </FormGroup>
