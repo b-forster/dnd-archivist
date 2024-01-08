@@ -113,7 +113,6 @@ function ModalContent() {
                         </InputLabel>
                         <Select
                             id="race-dropdown"
-                            label="Race"
                             value={race}
                             onChange={handleSelectRace}
                             fullWidth

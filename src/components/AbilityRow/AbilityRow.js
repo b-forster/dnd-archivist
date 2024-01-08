@@ -1,18 +1,34 @@
 import './AbilityRow.css';
+import { useEffect, useState } from 'react';
 import { ABILITIES } from 'constants';
 import {
     Input, InputLabel, Slider,
 } from '@mui/material';
 
 function AbilityRow(props) {
+    const [inputVal, setInputVal] = useState(0);
+    const [modifiedVal, setModifiedVal] = useState(0);
+    let modifier = props.modifier || 0;
+
     let abilityName = props.name;
     if (!ABILITIES[abilityName]) return;
 
     let abbr = ABILITIES[abilityName].abbr;
 
     const formatModifierString = () => {
-        let modifier = props.modifier;
-        return (modifier && modifier > 0) ? `+${modifier}` : '';
+        return (modifier > 0) ? `+${modifier}` : '';
+    }
+
+    const handleChangeInputVal = (e) => {
+        let inputVal = parseInt(e.target.value);
+        setInputVal(inputVal);
+        setModifiedVal(inputVal + modifier);
+    }
+
+    const handleChangeSliderVal = (e) => {
+        let sliderVal = e.target.value;
+        setModifiedVal(sliderVal);
+        setInputVal(sliderVal - modifier);
     }
 
     return (
@@ -28,10 +44,10 @@ function AbilityRow(props) {
                 type="number"
                 id={`${abbr}-input`}
                 name={`stats[${abbr}]`}
-                // value={}
+                value={inputVal}
                 min={0}
                 max={20}
-                onChange={() => { }}
+                onChange={handleChangeInputVal}
                 sx={{
                     width: '3em', padding: '0', fontFamily: 'Caveat, cursive', fontSize:
                         '1.5em',
@@ -48,10 +64,12 @@ function AbilityRow(props) {
             </span>
 
             <Slider
-                aria-label={abilityName}
                 defaultValue={0}
-                // getAriaValueText={valuetext}
+                value={modifiedVal}
+                onChange={handleChangeSliderVal}
                 valueLabelDisplay="auto"
+                aria-label={abilityName}
+                getAriaValueText={() => { return modifiedVal.toString(); }}
                 min={1}
                 max={20}
                 sx={{ width: '10em', marginLeft: '1em' }}
