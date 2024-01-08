@@ -31,9 +31,37 @@ function AbilityRow({ name, modifier }) {
         setInputVal(sliderVal - modifier);
     };
 
+    const handleDiceClick = () => {
+        // Roll for stat: 
+        // 1. Roll 4 x 6-sided dice
+        // 2. Drop lowest number
+        // 3. Add remaining total
+        const NUM_DIE_SIDES = 6;
+        const NUM_ROLLS = 4;
+        let dieRolls = [];
+
+        while (dieRolls.length < NUM_ROLLS) {
+            let dieRoll = Math.ceil(Math.random() * NUM_DIE_SIDES);
+            dieRolls.push(dieRoll);
+        }
+
+        let dieRollsDropLowest = dieRolls.sort().slice(1, NUM_ROLLS);
+
+        let dieRollsTotal = dieRollsDropLowest.reduce((total, current) => {
+            return total + current;
+        }, 0);
+
+        setInputVal(dieRollsTotal);
+    };
+
+
     useEffect(() => {
         setModifiedVal(inputVal + modifier);
     }, [modifier]);
+
+    useEffect(() => {
+        setModifiedVal(inputVal + modifier);
+    }, [inputVal]);
 
     return (
         <div className="abilities-input-row">
@@ -44,9 +72,9 @@ function AbilityRow({ name, modifier }) {
                 {abilityName}:
             </InputLabel>
 
-            <figure className="d20-img">
+            <a className="d20-img-link" onClick={handleDiceClick}>
                 <img src="images/d20.png" />
-            </figure>
+            </a>
 
             <Input
                 type="number"

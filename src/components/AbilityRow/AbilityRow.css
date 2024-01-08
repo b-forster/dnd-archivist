@@ -11,11 +11,10 @@
     padding: 0.7em;
 }
 
-.d20-img {
-    margin: 0;
+.d20-img-link {
     padding: 0 1em;
 }
 
-.d20-img img {
-    width: 24px;
+.d20-img-link img {
+    width: 1.5em;
 }
