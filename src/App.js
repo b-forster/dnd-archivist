@@ -8,7 +8,7 @@ function App() {
             <Header />
             <ModalContent />
             <footer>
-                <a target="_blank" rel="noreferrer" href="https://icons8.com/icon/YcQqArFgdVcn/parchment">Parchment</a> icon by <a target="_blank" rel="noreferrer" href="https://icons8.com">Icons8</a>
+                Parchment icon by  <a target="_blank" rel="noreferrer" href="https://icons8.com/icon/YcQqArFgdVcn/parchment">Icons8</a> ＊ D20 icons by <a href="https://www.flaticon.com/free-icons/d20" title="d20 icons">Freepik - Flaticon</a>
             </footer>
         </div>
     );

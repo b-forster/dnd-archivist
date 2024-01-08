@@ -1,6 +1,6 @@
 .abilities-input-row {
     display: grid;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: 1fr auto auto auto auto;
     align-items: end;
 }
 
@@ -9,4 +9,13 @@
     font-size: small;
     width: 2em;
     padding: 0.7em;
+}
+
+.d20-img {
+    margin: 0;
+    padding: 0 1em;
+}
+
+.d20-img img {
+    width: 24px;
 }

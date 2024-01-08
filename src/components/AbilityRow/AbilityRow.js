@@ -44,6 +44,10 @@ function AbilityRow({ name, modifier }) {
                 {abilityName}:
             </InputLabel>
 
+            <figure className="d20-img">
+                <img src="images/d20.png" />
+            </figure>
+
             <Input
                 type="number"
                 id={`${abbr}-input`}
@@ -60,9 +64,6 @@ function AbilityRow({ name, modifier }) {
                 size='small'
                 required
             />
-
-            {/* <span class="stat-modifier" id="strength"></span>
-        <button type="button" class="die-img" disabled>20</button> */}
 
             <span className='ability-modifier-text'>
                 {formatModifierString()}
