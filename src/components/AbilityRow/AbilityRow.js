@@ -36,7 +36,6 @@ function AbilityRow({ name, modifier }) {
         // Trigger animation
         setShaking(true);
         setTimeout(() => setShaking(false), 300);
-
         // Roll for stat: 
         // 1. Roll 4 x 6-sided dice
         // 2. Drop lowest number
