@@ -9,6 +9,7 @@ import {
 function AbilityRow({ name, modifier }) {
     const [inputVal, setInputVal] = useState(0);
     const [modifiedVal, setModifiedVal] = useState(0);
+    const [isShaking, setShaking] = useState(false);
 
     let abilityName = name;
     if (!ABILITIES[abilityName]) return;
@@ -32,6 +33,10 @@ function AbilityRow({ name, modifier }) {
     };
 
     const handleDiceClick = () => {
+        // Trigger animation
+        setShaking(true);
+        setTimeout(() => setShaking(false), 300);
+
         // Roll for stat: 
         // 1. Roll 4 x 6-sided dice
         // 2. Drop lowest number
@@ -73,7 +78,7 @@ function AbilityRow({ name, modifier }) {
             </InputLabel>
 
             <a className="d20-img-link" onClick={handleDiceClick}>
-                <img src="images/d20.png" />
+                <img src="images/d20.png" className={isShaking ? 'shake' : ''} alt={`click dice to roll for${abilityName}`} />
             </a>
 
             <Input
