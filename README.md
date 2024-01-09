@@ -1,6 +1,6 @@
 # Description
 
-Archivist is a character sheet &amp; leveling companion app for Dungeons and Dragons 5th Edition.
+Archivist is a character sheet &amp; leveling companion app for Dungeons and Dragons 5th Edition (DnD 5e).
 
 This project is under development and is currently optimized for **desktop browser** screens using **dark mode**.
 
@@ -22,6 +22,7 @@ This project is under development and is currently optimized for **desktop brows
 - User logins
 - Persistent database storage
 - Support for tracking more detailed character stats: feats, equipment, spells, etc.
+- Helper text and info icons in character setup dialog with links to 5e manual for more transparency and context
 - Implement external fantasy name generator for randomized name suggestions
 - Interface for uploading avatar and/or generating AI art for character portrait
 - Create campaigns and invite other users
