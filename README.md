@@ -2,6 +2,30 @@
 
 A character sheet &amp; leveling companion app for Dungeons and Dragons 5th Edition.
 
+This project is under development and is currently optimized for **desktop browser** screens using **dark mode**.
+
+## Upcoming Changes
+
+### Basic Features
+
+- Save character and show it listed on the main page (via browser cookies)
+- View/edit existing character sheet
+- Multi-step character creation to allow more customization fields: alignment, backstory, etc.
+
+### UI
+
+- Light mode style optimizations
+- Support for mobile and other screen sizes
+
+### Stretch Goals
+
+- User logins
+- Persistent database storage
+- Support for tracking more detailed character stats: feats, equipment, spells, etc.
+- Implement external fantasy name generator for randomized name suggestions
+- Interface for uploading avatar and/or generating AI art for character portrait
+- Create campaigns and invite other users
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
