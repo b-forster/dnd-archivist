@@ -53,6 +53,13 @@ function ModalContent() {
         setAbilityModifiers(newModifiersObj);
     };
 
+    const handleSave = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const formJson = Object.fromEntries(formData.entries());
+        console.log(formJson);
+    }
+
     // Update combined race+subrace ability modifiers when either state changes
     useEffect(() => {
         let raceModifiers = RACES[race]?.['modifiers'] || [];
@@ -90,6 +97,7 @@ function ModalContent() {
                         component="form"
                         noValidate
                         autoComplete="off"
+                        onSubmit={handleSave}
                     >
                         <InputLabel
                             id="name-input-label"
@@ -100,6 +108,7 @@ function ModalContent() {
                         </InputLabel>
                         <TextField
                             id="name-input"
+                            name="name"
                             fullWidth
                             size='small'
                             required
@@ -114,6 +123,7 @@ function ModalContent() {
                         <Select
                             id="race-dropdown"
                             value={race}
+                            name="race"
                             onChange={handleSelectRace}
                             fullWidth
                             size='small'
@@ -141,6 +151,7 @@ function ModalContent() {
                                     id="subrace-dropdown"
                                     label="Subrace"
                                     value={subrace}
+                                    name="subrace"
                                     fullWidth
                                     size='small'
                                     onChange={(e) => handleSelectSubrace(e)}
@@ -170,6 +181,7 @@ function ModalContent() {
                         <Select
                             id="class-dropdown"
                             value={pclass}
+                            name="class"
                             onChange={(e) => setPclass(e.target.value)}
                             fullWidth
                             size='small'
@@ -196,13 +208,13 @@ function ModalContent() {
                                 />
                             ))}
                         </FormGroup>
-
+                        <Button type="submit">Save & Close</Button>
                     </Box>
                 </DialogContent>
-                <DialogActions>
+                {/* <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleClose}>Save & Close</Button>
-                </DialogActions>
+                </DialogActions> */}
             </Dialog>
         </React.Fragment >
     );

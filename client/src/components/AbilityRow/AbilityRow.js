@@ -59,13 +59,13 @@ function AbilityRow({ name, modifier }) {
     };
 
 
-    useEffect(() => {
-        setModifiedVal(inputVal + modifier);
-    }, [modifier]);
+    // useEffect(() => {
+    //     setModifiedVal(inputVal + modifier);
+    // }, [modifier]);
 
-    useEffect(() => {
-        setModifiedVal(inputVal + modifier);
-    }, [inputVal]);
+    // useEffect(() => {
+    //     setModifiedVal(inputVal + modifier);
+    // }, [inputVal]);
 
     return (
         <div className="abilities-input-row">
@@ -83,7 +83,7 @@ function AbilityRow({ name, modifier }) {
             <Input
                 type="number"
                 id={`${abbr}-input`}
-                name={`stats[${abbr}]`}
+                name={`stats.${abbr}`}
                 value={inputVal}
                 defaultValue={0}
                 min={0}
