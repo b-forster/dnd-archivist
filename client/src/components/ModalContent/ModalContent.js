@@ -25,9 +25,10 @@ function ModalContent() {
 
     let initialAbilityModifiers = Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
     const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
+    const [charName, setCharName] = useState('');
     const [race, setRace] = useState('');
     const [subrace, setSubrace] = useState('');
-    const [pclass, setPclass] = useState('');
+    const [charClass, setCharClass] = useState('');
 
     const handleSelectRace = (e) => {
         let raceName = e.target.value;
@@ -53,11 +54,21 @@ function ModalContent() {
         setAbilityModifiers(newModifiersObj);
     };
 
-    const handleSave = (e) => {
+    async function handleSave(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
+        const data = { name: charName, race, subrace, class: charClass, }
+
+        await fetch("http://localhost:4000/character/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .catch(error => {
+                window.alert(error);
+                return;
+            });
     }
 
     // Update combined race+subrace ability modifiers when either state changes
@@ -109,6 +120,8 @@ function ModalContent() {
                         <TextField
                             id="name-input"
                             name="name"
+                            value={charName}
+                            onChange={(e) => setCharName(e.target.value)}
                             fullWidth
                             size='small'
                             required
@@ -138,7 +151,7 @@ function ModalContent() {
                                 </MenuItem>
                             ))}
                         </Select>
-                        {getSubraces().length ? (
+                        {getSubraces().length > 0 && (
                             <div id="subrace-form-group">
                                 <InputLabel
                                     id="subrace-dropdown-label"
@@ -169,7 +182,7 @@ function ModalContent() {
                                     ))}
                                 </Select>
                             </div>
-                        ) : <></>}
+                        )}
 
                         <InputLabel
                             id="class-dropdown-label"
@@ -180,9 +193,9 @@ function ModalContent() {
                         </InputLabel>
                         <Select
                             id="class-dropdown"
-                            value={pclass}
-                            name="class"
-                            onChange={(e) => setPclass(e.target.value)}
+                            value={charClass}
+                            name="char-class"
+                            onChange={(e) => setCharClass(e.target.value)}
                             fullWidth
                             size='small'
                             required
