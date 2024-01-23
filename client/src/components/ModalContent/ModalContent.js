@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NavLink } from "react-router-dom";
 import './ModalContent.css';
 import {
     Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
@@ -53,11 +54,24 @@ function ModalContent() {
         setAbilityModifiers(newModifiersObj);
     };
 
-    const handleSave = (e) => {
+    async function handleSave(e) {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
+        console.log(formData.entries())
+        // const formJson = Object.fromEntries(formData.entries());
+        const formJson = JSON.stringify(formData.entries());
+
+        await fetch("http://localhost:4000/character/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: formJson,
+        })
+            .catch(error => {
+                window.alert(error);
+                return;
+            });
     }
 
     // Update combined race+subrace ability modifiers when either state changes
@@ -80,9 +94,11 @@ function ModalContent() {
 
     return (
         <React.Fragment>
+            {/* <NavLink className="nav-link" to="/create" onClick={handleClickOpen}> */}
             <Button variant="outlined" onClick={handleClickOpen}>
                 <a>+ Create a Character</a>
             </Button>
+            {/* </NavLink> */}
             <Dialog
                 open={isOpen}
                 onClose={handleClose}

@@ -83,7 +83,7 @@ function AbilityRow({ name, modifier }) {
             <Input
                 type="number"
                 id={`${abbr}-input`}
-                name={`stats.${abbr}`}
+                // name={`stats.${abbr}`}
                 value={inputVal}
                 defaultValue={0}
                 min={0}
