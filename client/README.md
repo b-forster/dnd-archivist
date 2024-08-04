@@ -4,13 +4,30 @@ Archivist is a character sheet &amp; leveling companion app for Dungeons and Dra
 
 ⚠️ This project is under development and is best viewed on **desktop browser** screens using **dark mode**.
 
-# Tech Stack / Tools
+## Upcoming Changes
 
-- node.js
-- express.js
-- react.js
-- MongoDB
-- Material UI
+### Basic Features
+
+- Save character and show it listed on the main page (via browser cookies)
+- View/edit existing character sheet
+- Multi-step character creation to allow more customization fields: alignment, backstory, etc.
+
+### UI
+
+- Light mode style optimizations
+- Support for mobile and other screen sizes
+
+### Stretch Goals
+
+- User logins
+- Persistent database storage
+- Support for tracking more detailed character stats: feats, equipment, spells, etc.
+- Helper text and info icons in character setup dialog with links to 5e manual for more transparency and context
+- Implement external fantasy name generator for randomized name suggestions
+- Interface for uploading avatar and/or generating AI art for character portrait
+- Create campaigns and invite other users
+
+This project is under development and is currently optimized for **desktop browser** screens using **dark mode**.
 
 ## Upcoming Changes
 
@@ -25,16 +42,11 @@ Archivist is a character sheet &amp; leveling companion app for Dungeons and Dra
 - Light mode style optimizations
 - Support for mobile and other screen sizes
 
-### Code Quality
-
-- Add tests for UI, server, API
-- Convert to Typescript for better robustness
-
 ### Stretch Goals
 
-- User logins, support for multiple characters per user
+- User logins
+- Persistent database storage
 - Support for tracking more detailed character stats: feats, equipment, spells, etc.
-- Helper text and info icons in character setup dialog with links to 5e manual for better useability and context
 - Implement external fantasy name generator for randomized name suggestions
 - Interface for uploading avatar and/or generating AI art for character portrait
 - Create campaigns and invite other users

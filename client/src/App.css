@@ -1,0 +1,24 @@
+body {
+  color: silver;
+  background-color: #111;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  font-size: small;
+  font-variant: small-caps;
+  position: absolute;
+  bottom: 2em;
+}
