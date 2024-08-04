@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Box, Button, FormGroup, InputLabel, MenuItem, Select, TextField,
+    Box, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
-import AbilityRow from '../../AbilityRow/AbilityRow';
 
 
 function RaceStep() {
@@ -119,18 +118,6 @@ function RaceStep() {
                     </Select>
                 </div>
             )}
-
-            <FormGroup
-                sx={{ marginTop: '0.5em' }}
-            >
-                {ABILITIES_LIST.map((abilityName) => (
-                    <AbilityRow
-                        name={abilityName}
-                        key={abilityName}
-                        modifier={abilityModifiers[abilityName] || 0}
-                    />
-                ))}
-            </FormGroup>
         </Box>
     );
 

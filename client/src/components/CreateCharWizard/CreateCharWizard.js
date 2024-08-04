@@ -3,13 +3,14 @@ import './CreateCharWizard.css';
 import RaceStep from './RaceStep/RaceStep';
 import ClassStep from './ClassStep/ClassStep';
 import StoryStep from './StoryStep/StoryStep';
+import RollStep from './RollStep/RollStep';
 import {
     Box, Button, Step, Stepper, Typography, StepButton
 } from '@mui/material';
 
 
 function CreateCharWizard() {
-    const steps = ['Select Race', 'Select Class', 'Character Details',];
+    const steps = ['Select Race', 'Select Class', 'Character Details', 'Roll for Stats'];
 
     // async function handleSave(e) {
     //     e.preventDefault();
@@ -106,6 +107,7 @@ function CreateCharWizard() {
                             {activeStep === 0 && <RaceStep />}
                             {activeStep === 1 && <ClassStep />}
                             {activeStep === 2 && <StoryStep />}
+                            {activeStep === 3 && <RollStep />}
 
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
