@@ -11,6 +11,14 @@ function AbilityRow({ name, modifier }) {
     const [modifiedVal, setModifiedVal] = useState(0);
     const [isShaking, setShaking] = useState(false);
 
+    useEffect(() => {
+        setModifiedVal(inputVal + modifier);
+    }, [modifier]);
+
+    useEffect(() => {
+        setModifiedVal(inputVal + modifier);
+    }, [inputVal]);
+
     let abilityName = name;
     if (!ABILITIES[abilityName]) return;
 
@@ -58,14 +66,6 @@ function AbilityRow({ name, modifier }) {
         setInputVal(dieRollsTotal);
     };
 
-
-    // useEffect(() => {
-    //     setModifiedVal(inputVal + modifier);
-    // }, [modifier]);
-
-    // useEffect(() => {
-    //     setModifiedVal(inputVal + modifier);
-    // }, [inputVal]);
 
     return (
         <div className="abilities-input-row">
