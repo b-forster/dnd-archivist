@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './Modal.css';
 import CreateCharWizard from 'components/CreateCharWizard/CreateCharWizard';
 import {
-    Box, Button, Dialog, DialogActions, DialogContent, DialogContentText,
-    DialogTitle, FormGroup, InputLabel, MenuItem, Select, TextField
+    Button, Dialog, DialogContent, DialogContentText,
+    DialogTitle,
 } from '@mui/material';
 
 
