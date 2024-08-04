@@ -1,3 +1,9 @@
 .modal-content {
     text-align: center;
 }
+
+.modal-title {
+    font-family: 'Lugrasimo', serif;
+    font-style: normal;
+    padding-left: 1em;
+}

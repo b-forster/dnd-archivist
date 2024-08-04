@@ -39,20 +39,20 @@ function StoryStep() {
                 onChange={setGender}
             >
                 <FormControlLabel
-                    name="female"
-                    value={gender}
+                    name={gender}
+                    value="female"
                     control={<Radio />}
                     label="Female"
                 />
                 <FormControlLabel
-                    name="male"
-                    value={gender}
+                    name={gender}
+                    value="male"
                     control={<Radio />}
                     label="Male"
                 />
                 <FormControlLabel
-                    name="other"
-                    value={gender}
+                    name={gender}
+                    value="other"
                     control={<Radio />}
                     label="Non-binary / Other"
                 />

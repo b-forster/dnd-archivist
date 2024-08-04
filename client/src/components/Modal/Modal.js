@@ -30,7 +30,7 @@ function Modal({ title, summary, buttonLabel }) {
                 onClose={handleClose}
                 maxWidth='lg'
             >
-                <DialogTitle>{title}</DialogTitle>
+                <DialogTitle class="modal-title">{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {summary}
