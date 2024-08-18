@@ -10,7 +10,12 @@ import {
 
 
 function CreateCharWizard() {
-    const steps = ['Select Race', 'Select Class', 'Character Details', 'Roll for Stats'];
+    const steps = [
+        { name: 'Race', label: 'Select Race', component: <RaceStep /> },
+        { name: 'Class', label: 'Select Class', component: <ClassStep /> },
+        { name: 'Details', label: 'Character Details', component: <StoryStep /> },
+        { name: 'Stats', label: 'Roll for Stats', component: <RollStep /> },
+    ];
 
     // async function handleSave(e) {
     //     e.preventDefault();
@@ -82,7 +87,7 @@ function CreateCharWizard() {
     return (
         <Box sx={{ width: '100%' }}>
             <Stepper nonLinear activeStep={activeStep}>
-                {steps.map((label, index) => (
+                {steps.map(({ label }, index) => (
                     <Step key={label} completed={completed[index]}>
                         <StepButton color="inherit" onClick={handleStep(index)}>
                             {label}
@@ -94,7 +99,7 @@ function CreateCharWizard() {
                 {allStepsCompleted() ? (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1 }}>
-                            All steps completed - you&apos;re finished
+                            Success - Character Created!
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Box sx={{ flex: '1 1 auto' }} />
@@ -104,10 +109,7 @@ function CreateCharWizard() {
                 ) : (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-                            {activeStep === 0 && <RaceStep />}
-                            {activeStep === 1 && <ClassStep />}
-                            {activeStep === 2 && <StoryStep />}
-                            {activeStep === 3 && <RollStep />}
+                            {steps[activeStep].component}
 
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -126,13 +128,13 @@ function CreateCharWizard() {
                             {activeStep !== steps.length &&
                                 (completed[activeStep] ? (
                                     <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                                        Step {activeStep + 1} already completed
+                                        {steps[activeStep].name} already completed
                                     </Typography>
                                 ) : (
                                     <Button onClick={handleComplete}>
                                         {completedSteps() === totalSteps() - 1
                                             ? 'Finish'
-                                            : 'Complete Step'}
+                                            : `Confirm ${steps[activeStep].name}`}
                                     </Button>
                                 ))}
                         </Box>
