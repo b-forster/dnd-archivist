@@ -1,3 +1,7 @@
+<img width="300" alt="DnD Archivist logo" src="https://github.com/user-attachments/assets/911f9d19-52e2-4d83-a1ad-2b34ff8904e4" />
+
+<img width="300" alt="Character creation screen: Roll for Stats step" src="https://github.com/user-attachments/assets/e0f2bc63-8f4a-437a-a871-a0cb7b75a329" />
+
 # Description
 
 Archivist is a character sheet &amp; leveling companion app for Dungeons and Dragons 5th Edition (DnD 5e).
