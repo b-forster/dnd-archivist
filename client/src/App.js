@@ -106,7 +106,7 @@ function App() {
                 bottom: 0,
                 zIndex: 10
             }}>
-                Parchment icon by <Box component="a" sx={{ color: 'primary.main' }} target="_blank" rel="noreferrer" href="https://icons8.com/icon/YcQqArFgdVcn/parchment">Icons8</Box> ＊ D20 icons by <Box component="a" sx={{ color: 'primary.main' }} target="_blank" rel="noreferrer" href="https://www.flaticon.com/free-icons/d20" title="d20 icons">Freepik - Flaticon</Box>
+                Parchment icon by <Box component="a" sx={{ color: 'primary.main', textDecoration: 'none' }} target="_blank" rel="noreferrer" href="https://icons8.com/icon/YcQqArFgdVcn/parchment">Icons8</Box> ＊ D20 icons by <Box component="a" sx={{ color: 'primary.main', textDecoration: 'none' }} target="_blank" rel="noreferrer" href="https://www.flaticon.com/free-icons/d20" title="d20 icons">Freepik - Flaticon</Box>
             </Box>
         </Box>
     );

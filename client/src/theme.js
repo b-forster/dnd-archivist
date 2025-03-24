@@ -36,9 +36,9 @@ const theme = createTheme({
         },
         background: {
             default: '#111',
+            paper: '#eee',
         },
         text: {
-            // primary: '#c0c0c0', // Silver
             primary: '#97bcf4', // Light blue
             secondary: '#1867b5', // Medium blue
         },
@@ -53,12 +53,13 @@ const theme = createTheme({
             fontFamily: '"Macondo", serif',
             fontWeight: 'normal',
             fontSize: '1.5rem',
-            color: '#1867b5', // Medium blue
+            color: '#97bcf4', // Light blue
+
         },
         h3: {
             fontFamily: '"Lugrasimo", cursive',
             fontSize: '1.5rem',
-            color: '#97bcf4', // Light blue
+            color: '#1867b5', // Medium blue
         },
     },
     components: {
@@ -73,7 +74,6 @@ const theme = createTheme({
         MuiList: {
             styleOverrides: {
                 root: {
-                    // backgroundColor: 'rgba(0, 0, 0, 0.2)',
                     border: '1px solid #333',
                     borderRadius: 4,
                 },
@@ -87,8 +87,7 @@ const theme = createTheme({
                         borderBottom: 'none',
                     },
                     '&:hover': {
-                        // color: '#ff3083', //pink
-                        // backgroundColor: 'rgba(255, 48, 131, 0.08)',
+                        color: '#ff3083', //pink
                     },
                 },
             },

@@ -11,49 +11,59 @@ function Header() {
             width: '100%',
             backgroundColor: 'background.default',
             zIndex: 10,
-            padding: '2rem 0'
+            padding: '2rem 0',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
         }}>
+            {/* Logo on the left */}
             <Box component="figure" sx={{
-                display: 'inline-block',
-                margin: 0
+                margin: 0,
+                marginRight: '2rem',
+                display: 'flex',
+                alignItems: 'center'
             }}>
                 <Box
                     component="img"
                     src="logo192.png"
                     alt="Parchment icon with a drawing of an Egyptian-style eye"
                     sx={{
-                        display: 'inline-block',
                         width: '10em',
                         margin: 0
                     }}
                 />
             </Box>
 
-            <Typography
-                variant="h1"
-                sx={{
-                    color: 'primary.main',
-                    fontFamily: '"Lugrasimo", cursive',
-                    fontSize: '6em',
-                    fontStyle: 'normal',
-                    margin: 0
-                }}
-            >
-                Archivist
-            </Typography>
+            {/* Text content on the right */}
+            <Box sx={{ textAlign: 'left' }}>
+                <Typography
+                    variant="h1"
+                    sx={{
+                        color: 'primary.main',
+                        fontFamily: '"Lugrasimo", cursive',
+                        fontSize: '6em',
+                        fontStyle: 'normal',
+                        margin: 0,
+                        lineHeight: 1
+                    }}
+                >
+                    Archivist
+                </Typography>
 
-            <Typography
-                variant="h2"
-                sx={{
-                    fontFamily: '"Macondo", serif',
-                    fontWeight: 'normal',
-                    fontStyle: 'italic',
-                    margin: 0
-                }}
-            >
-                A Character Creation & Leveling Companion App<br />
-                for Dungeons & Dragons 5th Edition
-            </Typography>
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontFamily: '"Macondo", serif',
+                        fontWeight: 'normal',
+                        fontStyle: 'italic',
+                        margin: 0
+                    }}
+                >
+                    A Character Creation & Leveling Companion App<br />
+                    for Dungeons & Dragons 5th Edition
+                </Typography>
+            </Box>
         </Box>
     );
 }

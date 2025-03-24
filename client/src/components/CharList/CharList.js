@@ -30,7 +30,7 @@ const CharList = ({ characters = [] }) => {
             <Paper
                 elevation={3}
                 sx={{
-                    backgroundColor: 'background.paper',
+                    backgroundColor: 'background.default',
                     border: `1px solid ${theme.palette.divider}`,
                     borderRadius: 1
                 }}
@@ -39,9 +39,8 @@ const CharList = ({ characters = [] }) => {
                     <Box sx={{
                         p: 2,
                         textAlign: 'center',
-                        fontStyle: 'italic',
                     }}>
-                        <Typography variant="body1" fontStyle="italic">
+                        <Typography>
                             No characters found. Create one to get started!
                         </Typography>
                     </Box>
@@ -56,10 +55,8 @@ const CharList = ({ characters = [] }) => {
                                 <ListItem
                                     sx={{
                                         textAlign: 'left',
-                                        // color: 'text.primary',
                                         '&:hover': {
                                             color: 'error.main',
-                                            // backgroundColor: 'rgba(255, 48, 131, 0.08)'
                                         }
                                     }}
                                 >
