@@ -14,16 +14,15 @@ characterRoutes.get('/test', (req, res) => res.send('character route testing!'))
 
 
 // This section will help you get a list of all the characters.
-// characterRoutes.route("/character").get(function (req, res) {
-//     let db_connect = dbo.getDb("dnd-archivist");
-//     db_connect
-//         .collection("Characters")
-//         .find({})
-//         .toArray(function (err, result) {
-//             if (err) throw err;
-//             res.json(result);
-//         });
-// });
+characterRoutes.route("/characters").get(async function (req, res) {
+    let db_connect = dbClient.db("db");
+    try {
+        const result = await db_connect.collection("Characters").find({}).toArray();
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 // // This section will help you get a single character by id
 // characterRoutes.route("/character/:id").get(function (req, res) {
@@ -38,16 +37,16 @@ characterRoutes.get('/test', (req, res) => res.send('character route testing!'))
 // });
 
 // This section will help you create a new character.
-characterRoutes.route("/character/add").post(async function (req, response) {
-
-    let db_connect = dbClient.db("db");
-    let myobj = req.body;
-    await db_connect.collection("Characters").insertOne(myobj, async function (err, res) {
-        if (err) throw err;
-        response.json(res);
-
-    });
-    await dbClient.close();
+characterRoutes.route("/characters/add").post(async function (req, res) {
+    try {
+        let db_connect = dbClient.db("db");
+        let myobj = req.body;
+        const result = await db_connect.collection("Characters").insertOne(myobj);
+        res.json(result);
+    } catch (err) {
+        console.error("Error adding character:", err);
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // // This section will help you update a character by id.
