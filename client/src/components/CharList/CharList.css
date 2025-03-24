@@ -1,45 +1,5 @@
-.char-list {
-    width: 30vw;
-    min-width: 400px;
-    margin: 0 auto;
-    padding: 1rem;
-}
-
-.char-list h2 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-    color: silver;
-}
-
-/* Style for Material UI List component */
-.char-list .MuiList-root {
-    max-height: 20vh;
-    overflow-y: auto;
-    background-color: rgba(0, 0, 0, 0.2);
-    padding: 0;
-}
-
-/* Style for Material UI ListItem component */
-.char-list .MuiListItem-root {
-    text-align: left;
-    color: silver;
-}
-
-.char-list .MuiListItem-root:last-child {
-    border-bottom: none;
-}
-
-.char-list .empty-message {
-    padding: 1rem;
-    text-align: center;
-    font-style: italic;
-    color: #999;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-/* Add some spacing between the list and the create button */
-.char-list+* {
-    margin-top: 2rem;
-}
+/* 
+   This file is kept for reference but all styles are now handled 
+   through Material UI's styling system using the theme.
+   See CharList.js for the implementation.
+*/

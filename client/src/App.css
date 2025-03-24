@@ -1,43 +1,5 @@
-body {
-  color: silver;
-  background-color: #111;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-.App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  position: relative;
-  padding: 0;
-}
-
-.content-area {
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-a {
-  text-decoration: none;
-}
-
-footer {
-  font-size: small;
-  font-variant: small-caps;
-  width: 100%;
-  padding: 1rem 0;
-  background-color: #111;
-  position: relative;
-  bottom: 0;
-  z-index: 10;
-}
+/* 
+   This file is kept for reference but all styles are now handled 
+   through Material UI's styling system using the theme.
+   See App.js for the implementation.
+*/

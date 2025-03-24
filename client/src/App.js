@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+import { Box, Typography, CircularProgress, useTheme } from '@mui/material';
 import { Header, Modal } from './components';
 import CharList from 'components/CharList/CharList';
 
 function App() {
+    const theme = useTheme();
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -42,13 +43,48 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            minHeight: '100vh',
+            position: 'relative',
+            padding: 0,
+            bgcolor: 'background.default',
+            color: 'text.primary'
+        }}>
             <Header />
 
-            <div className="content-area">
-                {error && <div className="error-message">{error}</div>}
+            <Box sx={{
+                flex: 1,
+                width: '100%',
+                maxWidth: '800px',
+                margin: '0 auto',
+                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+            }}>
+                {error && (
+                    <Typography
+                        color="error"
+                        sx={{
+                            p: 2,
+                            mb: 2,
+                            width: '100%',
+                            borderRadius: 1,
+                            bgcolor: 'rgba(255, 0, 0, 0.1)'
+                        }}
+                    >
+                        {error}
+                    </Typography>
+                )}
+
                 {loading ? (
-                    <div className="loading">Loading characters...</div>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+                        <CircularProgress color="secondary" />
+                    </Box>
                 ) : (
                     <CharList characters={characters} />
                 )}
@@ -58,12 +94,21 @@ function App() {
                     title="Create a New Character"
                     onCharacterCreated={onCharacterCreated}
                 />
-            </div>
+            </Box>
 
-            <footer>
-                Parchment icon by <a target="_blank" rel="noreferrer" href="https://icons8.com/icon/YcQqArFgdVcn/parchment">Icons8</a> ＊ D20 icons by <a target="_blank" rel="noreferrer" href="https://www.flaticon.com/free-icons/d20" title="d20 icons">Freepik - Flaticon</a>
-            </footer>
-        </div>
+            <Box component="footer" sx={{
+                fontSize: 'small',
+                fontVariant: 'small-caps',
+                width: '100%',
+                padding: '1rem 0',
+                bgcolor: 'background.default',
+                position: 'relative',
+                bottom: 0,
+                zIndex: 10
+            }}>
+                Parchment icon by <Box component="a" sx={{ color: 'primary.main' }} target="_blank" rel="noreferrer" href="https://icons8.com/icon/YcQqArFgdVcn/parchment">Icons8</Box> ＊ D20 icons by <Box component="a" sx={{ color: 'primary.main' }} target="_blank" rel="noreferrer" href="https://www.flaticon.com/free-icons/d20" title="d20 icons">Freepik - Flaticon</Box>
+            </Box>
+        </Box>
     );
 }
 
