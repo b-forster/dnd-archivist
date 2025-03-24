@@ -2,28 +2,28 @@
 
 Archivist is a character sheet &amp; leveling companion app for Dungeons and Dragons 5th Edition (DnD 5e).
 
-⚠️ This project is under development and is best viewed on **desktop browser** screens using **dark mode**.
+⚠️ This project is under development and is best viewed on a **desktop browser**.
 
 # Tech Stack / Tools
 
-- node.js
-- express.js
-- react.js
+- Node.js
+- Express.js
+- React.js
 - MongoDB
 - Material UI
+- Cline VSCode extension (used for debugging)
 
 ## Upcoming Changes
 
 ### Basic Features
 
-- Save character and show it listed on the main page (via browser cookies)
 - View/edit existing character sheet
-- Multi-step character creation to allow more customization fields: alignment, backstory, etc.
+- More customization steps during character creation: alignment, backstory, etc.
 
 ### UI
 
-- Light mode style optimizations
-- Support for mobile and other screen sizes
+- Support for smaller screen sizes
+- MUI color theme for consistency across the app
 
 ### Code Quality
 
@@ -34,7 +34,7 @@ Archivist is a character sheet &amp; leveling companion app for Dungeons and Dra
 
 - User logins, support for multiple characters per user
 - Support for tracking more detailed character stats: feats, equipment, spells, etc.
-- Helper text and info icons in character setup dialog with links to 5e manual for better useability and context
+- Helper text and info icons in character setup dialog with links to 5e manual
 - Implement external fantasy name generator for randomized name suggestions
 - Interface for uploading avatar and/or generating AI art for character portrait
 - Create campaigns and invite other users
@@ -70,42 +70,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
