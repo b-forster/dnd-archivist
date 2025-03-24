@@ -47,7 +47,12 @@ function CreateCharWizard() {
     };
 
     async function handleSave(e) {
-        e.preventDefault();
+        // If called from a form submit event, prevent default behavior
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
+
+        console.log("Saving character data:", charData);
 
         await fetch("http://localhost:4000/character/add", {
             method: "POST",
@@ -104,6 +109,12 @@ function CreateCharWizard() {
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
+
+        // If this is the last step, save the character data
+        if (completedSteps() === totalSteps() - 1) {
+            handleSave();
+        }
+
         handleNext();
     };
 
