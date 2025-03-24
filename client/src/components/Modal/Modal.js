@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 
 
-function Modal({ title, summary, buttonLabel }) {
+function Modal({ title, summary, buttonLabel, onCharacterCreated }) {
     /*** OPENING/CLOSING MODAL ***/
 
     const [isOpen, setOpen] = useState(false);
@@ -30,19 +30,15 @@ function Modal({ title, summary, buttonLabel }) {
                 onClose={handleClose}
                 maxWidth='lg'
             >
-                <DialogTitle class="modal-title">{title}</DialogTitle>
+                <DialogTitle className="modal-title">{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         {summary}
                     </DialogContentText>
-                    <CreateCharWizard />
+                    <CreateCharWizard onCharacterCreated={onCharacterCreated} onComplete={handleClose} />
                 </DialogContent>
-                {/* <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Save & Close</Button>
-                </DialogActions> */}
             </Dialog>
-        </React.Fragment >
+        </React.Fragment>
     );
 }
 

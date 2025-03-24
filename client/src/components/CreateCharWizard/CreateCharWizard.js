@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 
-function CreateCharWizard() {
+function CreateCharWizard({ onCharacterCreated, onComplete }) {
     const [charData, setCharData] = useState({
         name: '',
         race: '',
@@ -54,17 +54,42 @@ function CreateCharWizard() {
 
         console.log("Saving character data:", charData);
 
-        await fetch("http://localhost:4000/character/add", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(charData),
-        })
-            .catch(error => {
-                window.alert(error);
-                return;
+        try {
+            const response = await fetch("http://localhost:4000/characters/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(charData),
             });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log("Character saved successfully:", result);
+
+            // Notify parent that a character was created
+            if (onCharacterCreated) {
+                console.log("Calling onCharacterCreated callback");
+                onCharacterCreated();
+            } else {
+                console.warn("onCharacterCreated callback not provided");
+            }
+
+            // Close modal if provided
+            if (onComplete) {
+                console.log("Calling onComplete callback");
+                onComplete();
+            } else {
+                console.warn("onComplete callback not provided");
+            }
+
+        } catch (error) {
+            console.error("Error saving character:", error);
+            alert("Failed to save character. Please try again.");
+        }
     }
 
 
@@ -145,18 +170,18 @@ function CreateCharWizard() {
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
 
-        // If this is the last step, save the character data
-        if (completedSteps() === totalSteps() - 1) {
+        // Only save character data if we're completing the final step
+        if (isLastStep()) {
             handleSave();
         }
 
         handleNext();
     };
 
-    const handleReset = () => {
-        setActiveStep(0);
-        setCompleted({});
-    };
+    // const handleReset = () => {
+    //     setActiveStep(0);
+    //     setCompleted({});
+    // };
 
     return (
         <Box sx={{ width: '100%' }} onSubmit={handleSave}>
@@ -177,7 +202,6 @@ function CreateCharWizard() {
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleReset}>Reset</Button>
                         </Box>
                     </React.Fragment>
                 ) : (
@@ -208,7 +232,7 @@ function CreateCharWizard() {
                                         onClick={handleComplete}
                                         disabled={!getStepValidation(activeStep)}
                                     >
-                                        {completedSteps() === totalSteps() - 1
+                                        {isLastStep()
                                             ? 'Finish'
                                             : `Confirm ${steps[activeStep].name}`}
                                     </Button>
