@@ -5,23 +5,24 @@ import {
 import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
 
 
-function RaceStep() {
+function RaceStep({ charData, handleChange }) {
     /*** SETS RACE/SUBRACE AND ASSOCIATED ABILITY MODIFIERS ***/
 
     let initialAbilityModifiers = Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
     const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
-    const [race, setRace] = useState('');
-    const [subrace, setSubrace] = useState('');
 
     const handleSelectRace = (e) => {
         let raceName = e.target.value;
-        setRace(raceName);
-        setSubrace('');
+        // Update both race and subrace in a single state update
+        handleChange({
+            race: raceName,
+            subrace: ''
+        });
     };
 
     const handleSelectSubrace = (e) => {
         let subraceName = e.target.value;
-        setSubrace(subraceName);
+        handleChange({ subrace: subraceName });
     };
 
     const updateAbilityModifiers = (modifiersArr) => {
@@ -39,16 +40,16 @@ function RaceStep() {
 
     // Update combined race+subrace ability modifiers when either state changes
     useEffect(() => {
-        let raceModifiers = RACES[race]?.['modifiers'] || [];
-        let subraceModifiers = RACES[race]?.['subraces']?.[subrace]?.['modifiers'] || [];
+        let raceModifiers = RACES[charData.race]?.['modifiers'] || [];
+        let subraceModifiers = RACES[charData.race]?.['subraces']?.[charData.subrace]?.['modifiers'] || [];
 
         updateAbilityModifiers([...raceModifiers, ...subraceModifiers]);
-    }, [race, subrace]);
+    }, [charData]);
 
     /*** HELPER FUNCTIONS ***/
 
     const getSubraces = () => {
-        let subraces = RACES[race]?.['subraces'];
+        let subraces = RACES[charData.race]?.['subraces'];
         return subraces ? Object.keys(subraces) : [];
     };
 
@@ -70,13 +71,17 @@ function RaceStep() {
             </InputLabel>
             <Select
                 id="race-dropdown"
-                value={race}
+                value={charData.race}
                 name="race"
                 onChange={handleSelectRace}
+                displayEmpty
                 fullWidth
                 size='small'
                 required
             >
+                <MenuItem value="" divider>
+                    <em>Select a race</em>
+                </MenuItem>
                 {RACES_LIST.map((raceName) => (
                     <MenuItem
                         key={raceName}
@@ -98,7 +103,7 @@ function RaceStep() {
                     <Select
                         id="subrace-dropdown"
                         label="Subrace"
-                        value={subrace}
+                        value={charData.subrace}
                         name="subrace"
                         fullWidth
                         size='small'

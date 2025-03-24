@@ -1,48 +1,59 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
-    Box, FormGroup,
+    Box, FormGroup, Button,
 } from '@mui/material';
-import { ABILITIES_LIST } from 'constants';
+import { ABILITIES_LIST, ABILITIES } from 'constants';
 import AbilityRow from '../../AbilityRow/AbilityRow';
 
 
-function RollStep(abilityModifiers) {
-    /*** SETS RACE/SUBRACE AND ASSOCIATED ABILITY MODIFIERS ***/
+function RollStep({ charData, handleChange, abilityModifiers = {} }) {
+    // Function to update a specific ability score in the parent component
+    const updateAbilityScore = (abilityName, score) => {
+        const newAbilities = { ...charData.abilities, [abilityName]: score };
+        handleChange({ abilities: newAbilities });
+    };
 
-    // let initialAbilityModifiers = Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
-    // const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
+    // Roll for all abilities at once
+    const rollAllAbilities = () => {
+        const newAbilities = {};
 
-    // const updateAbilityModifiers = (modifiersArr) => {
-    //     let newModifiersObj = { ...initialAbilityModifiers };
-    //     for (let modifierObj of modifiersArr) {
-    //         let abilityName = modifierObj?.['attr'];
-    //         if (ABILITIES[abilityName]) {
-    //             newModifiersObj[abilityName] = newModifiersObj[abilityName] + modifierObj['value'];
-    //         } else {
-    //             // TODO: Handle case where user can select which ability to modify (abilityName = 'Any')
-    //         }
-    //     }
-    //     setAbilityModifiers(newModifiersObj);
-    // };
+        ABILITIES_LIST.forEach(abilityName => {
+            // Roll 4d6, drop lowest, sum the rest
+            const rolls = Array(4).fill(0).map(() => Math.ceil(Math.random() * 6));
+            rolls.sort((a, b) => a - b);
+            const sum = rolls.slice(1).reduce((total, roll) => total + roll, 0);
+            newAbilities[abilityName] = sum;
+        });
 
-    // Update combined race+subrace ability modifiers when either state changes
-    // useEffect(() => {
-    //     let raceModifiers = RACES[race]?.['modifiers'] || [];
-    //     let subraceModifiers = RACES[race]?.['subraces']?.[subrace]?.['modifiers'] || [];
+        handleChange({ abilities: newAbilities });
+    };
 
-    //     updateAbilityModifiers([...raceModifiers, ...subraceModifiers]);
-    // }, [race, subrace]);
-
-
-    /****** RETURN JSX ******/
+    // Initialize abilities object if it doesn't exist
+    useEffect(() => {
+        if (!charData.abilities || Object.keys(charData.abilities).length === 0) {
+            const initialAbilities = {};
+            ABILITIES_LIST.forEach(ability => {
+                initialAbilities[ability] = 0;
+            });
+            handleChange({ abilities: initialAbilities });
+        }
+    }, []);
 
     return (
         <Box
             component="form"
             noValidate
             autoComplete="off"
-        // onSubmit={handleSave}
         >
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={rollAllAbilities}
+                sx={{ mb: 2 }}
+            >
+                Roll All Abilities
+            </Button>
+
             <FormGroup
                 sx={{ marginTop: '0.5em' }}
             >
@@ -51,6 +62,8 @@ function RollStep(abilityModifiers) {
                         name={abilityName}
                         key={abilityName}
                         modifier={abilityModifiers[abilityName] || 0}
+                        value={charData.abilities?.[abilityName] || 0}
+                        onValueChange={(newValue) => updateAbilityScore(abilityName, newValue)}
                     />
                 ))}
             </FormGroup>

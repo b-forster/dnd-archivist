@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './CreateCharWizard.css';
 import RaceStep from './RaceStep/RaceStep';
 import ClassStep from './ClassStep/ClassStep';
@@ -10,29 +10,57 @@ import {
 
 
 function CreateCharWizard() {
+    const [charData, setCharData] = useState({
+        name: '',
+        race: '',
+        subrace: '',
+        class: '',
+        gender: '',
+        abilities: {},
+    });
+
+    const handleSetCharData = (updatedFields) => {
+        setCharData({ ...charData, ...updatedFields });
+    }
+
     const steps = [
-        { name: 'Race', label: 'Select Race', component: <RaceStep /> },
-        { name: 'Class', label: 'Select Class', component: <ClassStep /> },
-        { name: 'Details', label: 'Character Details', component: <StoryStep /> },
-        { name: 'Stats', label: 'Roll for Stats', component: <RollStep /> },
+        { name: 'Race', label: 'Select Race' },
+        { name: 'Class', label: 'Select Class' },
+        { name: 'Details', label: 'Character Details' },
+        { name: 'Stats', label: 'Roll for Stats' },
     ];
 
-    // async function handleSave(e) {
-    //     e.preventDefault();
-    //     const data = { name: charName, race, subrace, class: charClass, }
+    // Render the active step component
+    const getStepContent = (step) => {
+        switch (step) {
+            case 0:
+                return <RaceStep charData={charData} handleChange={handleSetCharData} />;
+            case 1:
+                return <ClassStep charData={charData} handleChange={handleSetCharData} />;
+            case 2:
+                return <StoryStep charData={charData} handleChange={handleSetCharData} />;
+            case 3:
+                return <RollStep charData={charData} handleChange={handleSetCharData} />;
+            default:
+                return 'Unknown step';
+        }
+    };
 
-    //     await fetch("http://localhost:4000/character/add", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //         .catch(error => {
-    //             window.alert(error);
-    //             return;
-    //         });
-    // }
+    async function handleSave(e) {
+        e.preventDefault();
+
+        await fetch("http://localhost:4000/character/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(charData),
+        })
+            .catch(error => {
+                window.alert(error);
+                return;
+            });
+    }
 
 
     const [activeStep, setActiveStep] = React.useState(0);
@@ -85,7 +113,7 @@ function CreateCharWizard() {
     };
 
     return (
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%' }} onSubmit={handleSave}>
             <Stepper nonLinear activeStep={activeStep}>
                 {steps.map(({ label }, index) => (
                     <Step key={label} completed={completed[index]}>
@@ -109,8 +137,7 @@ function CreateCharWizard() {
                 ) : (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
-                            {steps[activeStep].component}
-
+                            {getStepContent(activeStep)}
                         </Typography>
                         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                             <Button
@@ -143,142 +170,6 @@ function CreateCharWizard() {
             </div>
         </Box>
     );
-
-
-
-
-    // return (
-    //     <React.Fragment>
-    //         <Stepper>
-
-    //         </Stepper>
-
-
-
-
-
-
-    //         <Box
-    //             component="form"
-    //             noValidate
-    //             autoComplete="off"
-    //         // onSubmit={handleSave}
-    //         >
-    //             <InputLabel
-    //                 id="name-input-label"
-    //                 htmlFor="name-input"
-    //                 sx={{ marginTop: '1em' }}
-    //             >
-    //                 Name:
-    //             </InputLabel>
-    //             <TextField
-    //                 id="name-input"
-    //                 name="name"
-    //                 value={charName}
-    //                 onChange={(e) => setCharName(e.target.value)}
-    //                 fullWidth
-    //                 size='small'
-    //                 required
-    //             />
-    //             <InputLabel
-    //                 id="race-dropdown-label"
-    //                 htmlFor="race-dropdown"
-    //                 sx={{ marginTop: '1em' }}
-    //             >
-    //                 Race:
-    //             </InputLabel>
-    //             <Select
-    //                 id="race-dropdown"
-    //                 value={race}
-    //                 name="race"
-    //                 onChange={handleSelectRace}
-    //                 fullWidth
-    //                 size='small'
-    //                 required
-    //             >
-    //                 {RACES_LIST.map((raceName) => (
-    //                     <MenuItem
-    //                         key={raceName}
-    //                         value={raceName}
-    //                     >
-    //                         {raceName}
-    //                     </MenuItem>
-    //                 ))}
-    //             </Select>
-    //             {getSubraces().length > 0 && (
-    //                 <div id="subrace-form-group">
-    //                     <InputLabel
-    //                         id="subrace-dropdown-label"
-    //                         htmlFor="subrace-dropdown"
-    //                         sx={{ marginTop: '1em' }}
-    //                     >
-    //                         Subrace (optional):
-    //                     </InputLabel>
-    //                     <Select
-    //                         id="subrace-dropdown"
-    //                         label="Subrace"
-    //                         value={subrace}
-    //                         name="subrace"
-    //                         fullWidth
-    //                         size='small'
-    //                         onChange={(e) => handleSelectSubrace(e)}
-    //                     >
-    //                         <MenuItem value="" divider>
-    //                             <em>None</em>
-    //                         </MenuItem>
-    //                         {getSubraces().map((raceName) => (
-    //                             <MenuItem
-    //                                 key={raceName}
-    //                                 value={raceName}
-    //                             >
-    //                                 {raceName}
-    //                             </MenuItem>
-    //                         ))}
-    //                     </Select>
-    //                 </div>
-    //             )}
-
-    //             <InputLabel
-    //                 id="class-dropdown-label"
-    //                 htmlFor="class-dropdown"
-    //                 sx={{ marginTop: '1em' }}
-    //             >
-    //                 Class:
-    //             </InputLabel>
-    //             <Select
-    //                 id="class-dropdown"
-    //                 value={charClass}
-    //                 name="char-class"
-    //                 onChange={(e) => setCharClass(e.target.value)}
-    //                 fullWidth
-    //                 size='small'
-    //                 required
-    //             >
-    //                 {CLASSES_LIST.map((className) => (
-    //                     <MenuItem
-    //                         key={className}
-    //                         value={className}
-    //                     >
-    //                         {className}
-    //                     </MenuItem>
-    //                 ))}
-    //             </Select>
-
-    //             <FormGroup
-    //                 sx={{ marginTop: '0.5em' }}
-    //             >
-    //                 {ABILITIES_LIST.map((abilityName) => (
-    //                     <AbilityRow
-    //                         name={abilityName}
-    //                         key={abilityName}
-    //                         modifier={abilityModifiers[abilityName] || 0}
-    //                     />
-    //                 ))}
-    //             </FormGroup>
-    //             <Button type="submit">Save & Close</Button>
-    //         </Box>
-    //     </React.Fragment >
-    // );
 }
 
 export default CreateCharWizard;

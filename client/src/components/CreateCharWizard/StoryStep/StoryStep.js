@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Box, FormControl, FormControlLabel, FormLabel, InputLabel, Radio, RadioGroup, TextField,
 } from '@mui/material';
 import { pink, blue, green } from '@mui/material/colors';
 
-function StoryStep() {
-    const [charName, setCharName] = useState('');
-    const [gender, setGender] = useState('');
+function StoryStep({ charData, handleChange }) {
+
 
     return (
         <Box
             component="form"
             noValidate
             autoComplete="off"
-        // onSubmit={handleSave}
         >
             <InputLabel
                 id="name-input-label"
@@ -25,8 +23,8 @@ function StoryStep() {
             <TextField
                 id="name-input"
                 name="name"
-                value={charName}
-                onChange={(e) => setCharName(e.target.value)}
+                value={charData.name}
+                onChange={(e) => handleChange({ name: e.target.value })}
                 fullWidth
                 size='small'
                 required
@@ -36,22 +34,23 @@ function StoryStep() {
             <RadioGroup
                 row
                 name="row-radio-buttons-group"
-                onChange={setGender}
+                value={charData.gender || ''}
+                onChange={(e) => handleChange({ gender: e.target.value })}
             >
                 <FormControlLabel
-                    name={gender}
+                    name="gender"
                     value="female"
                     control={<Radio />}
                     label="Female"
                 />
                 <FormControlLabel
-                    name={gender}
+                    name="gender"
                     value="male"
                     control={<Radio />}
                     label="Male"
                 />
                 <FormControlLabel
-                    name={gender}
+                    name="gender"
                     value="other"
                     control={<Radio />}
                     label="Non-binary / Other"

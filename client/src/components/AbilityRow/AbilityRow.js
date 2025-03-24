@@ -6,18 +6,16 @@ import {
 } from '@mui/material';
 
 
-function AbilityRow({ name, modifier }) {
-    const [inputVal, setInputVal] = useState(0);
-    const [modifiedVal, setModifiedVal] = useState(0);
+function AbilityRow({ name, modifier, value = 0, onValueChange }) {
+    const [inputVal, setInputVal] = useState(value);
+    const [modifiedVal, setModifiedVal] = useState(value + modifier);
     const [isShaking, setShaking] = useState(false);
 
+    // Update when props change
     useEffect(() => {
-        setModifiedVal(inputVal + modifier);
-    }, [modifier]);
-
-    useEffect(() => {
-        setModifiedVal(inputVal + modifier);
-    }, [inputVal]);
+        setInputVal(value);
+        setModifiedVal(value + modifier);
+    }, [value, modifier]);
 
     let abilityName = name;
     if (!ABILITIES[abilityName]) return;
@@ -29,15 +27,22 @@ function AbilityRow({ name, modifier }) {
     };
 
     const handleChangeInputVal = (e) => {
-        let inputVal = parseInt(e.target.value);
-        setInputVal(inputVal);
-        setModifiedVal(inputVal + modifier);
+        const newValue = parseInt(e.target.value) || 0;
+        setInputVal(newValue);
+        setModifiedVal(newValue + modifier);
+        if (onValueChange) {
+            onValueChange(newValue);
+        }
     };
 
     const handleChangeSliderVal = (e) => {
-        let sliderVal = e.target.value;
+        const sliderVal = parseInt(e.target.value) || 0;
         setModifiedVal(sliderVal);
-        setInputVal(sliderVal - modifier);
+        const newInputVal = sliderVal - modifier;
+        setInputVal(newInputVal);
+        if (onValueChange) {
+            onValueChange(newInputVal);
+        }
     };
 
     const handleDiceClick = () => {
@@ -63,7 +68,12 @@ function AbilityRow({ name, modifier }) {
             return total + current;
         }, 0);
 
-        setInputVal(dieRollsTotal);
+        const newValue = dieRollsTotal;
+        setInputVal(newValue);
+        setModifiedVal(newValue + modifier);
+        if (onValueChange) {
+            onValueChange(newValue);
+        }
     };
 
 
@@ -85,7 +95,6 @@ function AbilityRow({ name, modifier }) {
                 id={`${abbr}-input`}
                 name={`stats.${abbr}`}
                 value={inputVal}
-                defaultValue={0}
                 min={0}
                 max={20}
                 onChange={handleChangeInputVal}

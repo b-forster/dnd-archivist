@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Box, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import { CLASSES_LIST } from 'constants';
 
 
-function ClassStep() {
-    const [charClass, setCharClass] = useState('');
+function ClassStep({ charData, handleChange }) {
 
     return (
         <Box
@@ -24,13 +23,17 @@ function ClassStep() {
             </InputLabel>
             <Select
                 id="class-dropdown"
-                value={charClass}
-                name="char-class"
-                onChange={(e) => setCharClass(e.target.value)}
+                value={charData.class}
+                name="class"
+                onChange={(e) => handleChange({ class: e.target.value })}
+                displayEmpty
                 fullWidth
                 size='small'
                 required
             >
+                <MenuItem value="" divider>
+                    <em>Select a class</em>
+                </MenuItem>
                 {CLASSES_LIST.map((className) => (
                     <MenuItem
                         key={className}
