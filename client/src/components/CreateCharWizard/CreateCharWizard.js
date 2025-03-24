@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './CreateCharWizard.css';
 import RaceStep from './RaceStep/RaceStep';
 import ClassStep from './ClassStep/ClassStep';
@@ -105,6 +105,41 @@ function CreateCharWizard() {
         setActiveStep(step);
     };
 
+    // Validation functions for each step
+    const validateRaceStep = () => {
+        return charData.race !== '';
+    };
+
+    const validateClassStep = () => {
+        return charData.class !== '';
+    };
+
+    const validateStoryStep = () => {
+        return charData.name !== '' && charData.gender !== '';
+    };
+
+    const validateRollStep = () => {
+        if (!charData.abilities) return false;
+        // Check if at least one ability score is non-zero
+        return Object.values(charData.abilities).some(score => score > 0);
+    };
+
+    // Get validation function for current step
+    const getStepValidation = (step) => {
+        switch (step) {
+            case 0:
+                return validateRaceStep();
+            case 1:
+                return validateClassStep();
+            case 2:
+                return validateStoryStep();
+            case 3:
+                return validateRollStep();
+            default:
+                return true;
+        }
+    };
+
     const handleComplete = () => {
         const newCompleted = completed;
         newCompleted[activeStep] = true;
@@ -169,7 +204,10 @@ function CreateCharWizard() {
                                         {steps[activeStep].name} already completed
                                     </Typography>
                                 ) : (
-                                    <Button onClick={handleComplete}>
+                                    <Button
+                                        onClick={handleComplete}
+                                        disabled={!getStepValidation(activeStep)}
+                                    >
                                         {completedSteps() === totalSteps() - 1
                                             ? 'Finish'
                                             : `Confirm ${steps[activeStep].name}`}
