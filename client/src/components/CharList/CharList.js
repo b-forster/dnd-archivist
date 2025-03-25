@@ -15,7 +15,7 @@ const CharList = ({ characters = [] }) => {
 
     return (
         <Box sx={{
-            width: '30vw',
+            width: '20vw',
             minWidth: '400px',
             margin: '0 auto',
             padding: '1rem'
@@ -31,8 +31,6 @@ const CharList = ({ characters = [] }) => {
                 elevation={3}
                 sx={{
                     backgroundColor: 'background.default',
-                    border: `1px solid ${theme.palette.divider}`,
-                    borderRadius: 1
                 }}
             >
                 {!characters.length ? (
@@ -46,15 +44,16 @@ const CharList = ({ characters = [] }) => {
                     </Box>
                 ) : (
                     <List sx={{
-                        maxHeight: '20vh',
+                        maxHeight: '40vh',
                         overflow: 'auto',
-                        padding: 0
+                        padding: 0,
+                        border: 'none',
                     }}>
                         {characters.map((char, index) => (
                             <React.Fragment key={char._id || index}>
                                 <ListItem
                                     sx={{
-                                        textAlign: 'left',
+                                        textAlign: 'center',
                                         '&:hover': {
                                             color: 'error.main',
                                         }
@@ -63,7 +62,9 @@ const CharList = ({ characters = [] }) => {
                                     <ListItemText
                                         primary={
                                             <Typography component="span">
-                                                <Box component="span" fontWeight="bold">{char.name}</Box> - {char.race} {char.class}
+                                                <Box component="span" fontWeight="bold">
+                                                    {char.name}</Box>
+                                                - {char.race} {char.class}
                                             </Typography>
                                         }
                                     />
