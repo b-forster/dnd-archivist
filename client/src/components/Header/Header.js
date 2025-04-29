@@ -1,9 +1,7 @@
-import React from 'react';
-import { Box, Typography, useTheme } from '@mui/material';
+import React, { memo } from 'react';
+import { Box, Typography } from '@mui/material';
 
-function Header() {
-    const theme = useTheme();
-
+const Header = memo(() => {
     return (
         <Box component="header" sx={{
             position: 'relative',
@@ -66,6 +64,6 @@ function Header() {
             </Box>
         </Box>
     );
-}
+});
 
 export default Header;

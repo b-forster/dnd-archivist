@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress, useTheme } from '@mui/material';
 import { Header, Modal } from './components';
 import CharList from 'components/CharList/CharList';
+import Footer from 'components/Footer/Footer';
 
 function App() {
     const theme = useTheme();
@@ -90,20 +91,9 @@ function App() {
                     title="Create a New Character"
                     onCharacterCreated={onCharacterCreated}
                 />
+                <Footer />
             </Box>
-
-            <Box component="footer" sx={{
-                fontSize: 'small',
-                fontVariant: 'small-caps',
-                width: '100%',
-                padding: '1rem 0',
-                bgcolor: 'background.default',
-                position: 'relative',
-                bottom: 0,
-                zIndex: 10
-            }}>
-            </Box>
-        </Box>
+        </Box >
     );
 }
 
