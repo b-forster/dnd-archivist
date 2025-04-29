@@ -105,7 +105,7 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
     };
 
     const isLastStep = () => {
-        return activeStep === totalSteps() - 1;
+        return completedSteps() === totalSteps() - 1;
     };
 
     const allStepsCompleted = () => {
@@ -113,12 +113,8 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
     };
 
     const handleNext = () => {
-        const newActiveStep =
-            isLastStep() && !allStepsCompleted()
-                ? // It's the last step, but not all steps have been completed,
-                // find the first step that has been completed
-                steps.findIndex((step, i) => !(i in completed))
-                : activeStep + 1;
+        if (allStepsCompleted()) return;
+        const newActiveStep = (activeStep + 1) % totalSteps();
         setActiveStep(newActiveStep);
     };
 
@@ -166,15 +162,13 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
     };
 
     const handleComplete = () => {
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-
-        // Only save character data if we're completing the final step
-        if (isLastStep()) {
-            handleSave();
+        if (getStepValidation(activeStep)) {
+            const newCompleted = { ...completed };
+            newCompleted[activeStep] = true;
+            setCompleted(newCompleted);
+            // Only save character data if we're completing the final step
+            if (allStepsCompleted()) handleSave();
         }
-
         handleNext();
     };
 
@@ -219,24 +213,9 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
                                 Back
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleNext} sx={{ mr: 1 }}>
-                                Next
+                            <Button onClick={handleComplete} disabled={isLastStep() && !getStepValidation(activeStep)} sx={{ mr: 1 }}>
+                                {isLastStep() ? 'Finish' : 'Next'}
                             </Button>
-                            {activeStep !== steps.length &&
-                                (completed[activeStep] ? (
-                                    <Typography variant="caption" sx={{ display: 'inline-block' }}>
-                                        {steps[activeStep].name} already completed
-                                    </Typography>
-                                ) : (
-                                    <Button
-                                        onClick={handleComplete}
-                                        disabled={!getStepValidation(activeStep)}
-                                    >
-                                        {isLastStep()
-                                            ? 'Finish'
-                                            : `Confirm ${steps[activeStep].name}`}
-                                    </Button>
-                                ))}
                         </Box>
                     </React.Fragment>
                 )}
