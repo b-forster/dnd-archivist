@@ -2,7 +2,14 @@
 
 Archivist is a character sheet &amp; leveling companion app for Dungeons and Dragons 5th Edition (DnD 5e).
 
-⚠️ This project is under development and is best viewed on **desktop browser** screens.
+⚠️ This project is under development and is best viewed on **desktop browser** screens in **light mode**.
+
+# Features
+
+- Multi-step character creation wizard
+- Roll dice for ability scores according to 5th Edition rules
+- Ability modifiers are added depending on chosen race
+- List of saved characters on the main page
 
 # Tech Stack / Tools
 
@@ -16,25 +23,25 @@ Archivist is a character sheet &amp; leveling companion app for Dungeons and Dra
 
 ### Basic Features
 
-- Save character and show it listed on the main page (via browser cookies)
-- View/edit existing character sheet
-- Multi-step character creation to allow more customization fields: alignment, backstory, etc.
+- View/edit existing character
+- Level up a character and upgrade abilities
 
 ### UI
 
-- Light mode style optimizations
+- Dark mode style optimizations
 - Support for mobile and other screen sizes
 
 ### Code Quality
 
 - Add tests for UI, server, API
-- Convert to Typescript for better robustness
+- Add server side character validations
+- Convert to Typescript for better type safety
 
 ### Stretch Goals
 
 - User logins, support for multiple characters per user
 - Support for tracking more detailed character stats: feats, equipment, spells, etc.
-- Helper text and info icons in character setup dialog with links to 5e manual for better useability and context
+- Helper text and info icons in character setup dialog with links to 5e manual for better context and usability
 - Implement external fantasy name generator for randomized name suggestions
 - Interface for uploading avatar and/or generating AI art for character portrait
 - Create campaigns and invite other users
@@ -97,3 +104,9 @@ Runs ESLint to check for code quality issues across the project.
 ### Additional Scripts
 
 For more detailed information about client-specific or server-specific scripts, refer to the respective package.json files in the client and server directories.
+
+# Acknowledgements
+
+- Parchment icon by [Icons8](https://icons8.com/icon/YcQqArFgdVcn/parchment)
+
+- d20 icons by [Freepik](https://www.flaticon.com/free-icons/d20)
