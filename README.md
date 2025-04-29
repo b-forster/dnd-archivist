@@ -6,9 +6,9 @@ Archivist is a character sheet &amp; leveling companion app for Dungeons and Dra
 
 # Tech Stack / Tools
 
-- node.js
-- express.js
-- react.js
+- Node.js
+- Express.js
+- React (with Create React App)
 - MongoDB
 - Material UI
 
@@ -39,73 +39,61 @@ Archivist is a character sheet &amp; leveling companion app for Dungeons and Dra
 - Interface for uploading avatar and/or generating AI art for character portrait
 - Create campaigns and invite other users
 
-# Getting Started with Create React App
+# Project Structure
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is organized as a monorepo with separate client and server directories:
+
+- `client/`: React frontend application (bootstrapped with Create React App)
+- `server/`: Express.js backend API server
+
+## Getting Started
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+   This will install dependencies for the root project, client, and server.
+
+2. Set up environment variables:
+   - Create a `config.env` file in the server directory with your MongoDB connection string:
+     ```
+     ATLAS_URI=your_mongodb_connection_string
+     PORT=4000
+     ```
+
+3. Start the development server:
+   ```
+   npm run dev
+   ```
+   This will start both the client (http://localhost:3000) and server (http://localhost:4000) in development mode.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the root directory, you can run:
+
+### `npm run dev`
+
+Runs both client and server in development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view the client in your browser.\
+The server will be running on [http://localhost:4000](http://localhost:4000).
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Similar to `npm run dev` but runs the server in production mode.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the client app for production to the `client/build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Launches the test runner in the interactive watch mode.
 
-### `npm run eject`
+### `npm run lint`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Runs ESLint to check for code quality issues across the project.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Additional Scripts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For more detailed information about client-specific or server-specific scripts, refer to the respective package.json files in the client and server directories.

@@ -1,1 +1,47 @@
-{}
+{
+    "name": "dnd-archivist-monorepo",
+    "version": "1.0.0",
+    "description": "D&D Archivist - A 5e Dungeons & Dragons character creation and tracking tool.",
+    "private": true,
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "scripts": {
+        "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+        "start:client": "cd client && npm start",
+        "start:server": "cd server && node server.js",
+        "dev:client": "cd client && npm start",
+        "dev:server": "cd server && npm run dev",
+        "build": "cd client && npm run build",
+        "test": "cd client && npm test",
+        "lint": "eslint .",
+        "postinstall": "npm run install:all",
+        "install:all": "npm run install:client && npm run install:server",
+        "install:client": "cd client && npm install",
+        "install:server": "cd server && npm install"
+    },
+    "keywords": [
+        "dnd",
+        "character",
+        "management",
+        "react",
+        "express",
+        "mongodb"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "eslint": "^8.56.0",
+        "eslint-plugin-react": "^7.33.2",
+        "nodemon": "^3.1.10"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}
