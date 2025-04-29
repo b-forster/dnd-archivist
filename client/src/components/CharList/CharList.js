@@ -54,7 +54,15 @@ const CharList = ({ characters = [] }) => {
                                 <ListItem>
                                     <ListItemText
                                         primary={
-                                            <Typography component="span">
+                                            <Typography
+                                                component="span"
+                                                className="character-item"
+                                                sx={{
+                                                    display: 'block',
+                                                    width: '100%',
+                                                    cursor: 'pointer'
+                                                }}
+                                            >
                                                 <Box component="span" fontWeight="bold">
                                                     {char.name}</Box>
                                                 - {char.race} {char.class}

@@ -97,10 +97,7 @@ const theme = createTheme({
                     textAlign: 'center',
                     '&:last-child': {
                         borderBottom: 'none',
-                    },
-                    '&:hover': {
-                        color: '#ff3083', //pink
-                    },
+                    }
                 },
             },
         },

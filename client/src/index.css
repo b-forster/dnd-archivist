@@ -5,3 +5,31 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Animation keyframes for character list items */
+@keyframes hoverAnimation {
+  0% {
+    color: #97bcf4;
+    /* Light blue (initial color) */
+  }
+
+  10% {
+    color: #fbc411;
+    /* Gold (intermediate color) */
+  }
+
+  100% {
+    color: #ff3083;
+    /* Pink (final hover color) */
+  }
+}
+
+/* Style for character list items */
+.character-item {
+  color: #97bcf4;
+  /* Light blue (initial color) */
+}
+
+.character-item:hover {
+  animation: hoverAnimation 0.4s forwards;
+}
