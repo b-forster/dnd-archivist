@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React from 'react';
 import {
     Box, FormGroup, Button,
 } from '@mui/material';
 import { ABILITIES_LIST } from 'constants';
-import { rollAbilityScore, getRandomDelay } from '../../../utils/diceUtils';
 import AbilityRow from '../../AbilityRow/AbilityRow';
+import useDiceRoller from '../../../hooks/useDiceRoller';
 
 /**
  * RollStep component for rolling ability scores in character creation
@@ -16,57 +16,35 @@ import AbilityRow from '../../AbilityRow/AbilityRow';
  * @returns {JSX.Element} The RollStep component
  */
 function RollStep({ charData, handleChange, abilityModifiers = {} }) {
-    const [isRollingAll, setIsRollingAll] = useState(false);
+    /**
+     * Update ability scores in the parent component
+     * 
+     * @param {Object} newAbilities - New abilities object
+     */
+    const updateAbilities = (newAbilities) => {
+        handleChange({ abilities: newAbilities });
+    };
 
     /**
-     * Update a specific ability score in the parent component
+     * Update a specific ability score
      * 
      * @param {string} abilityName - The name of the ability to update
      * @param {number} score - The new score value
      */
-    const updateAbilityScore = useCallback((abilityName, score) => {
-        const newAbilities = { ...charData.abilities, [abilityName]: score };
-        handleChange({ abilities: newAbilities });
-    }, [charData.abilities, handleChange]);
+    const updateAbilityScore = (abilityName, score) => {
+        const newAbilities = {
+            ...charData.abilities,
+            [abilityName]: score
+        };
+        updateAbilities(newAbilities);
+    };
 
-    /**
-     * Roll for all abilities at once
-     */
-    // Initialize abilities object if it doesn't exist
-    useEffect(() => {
-        if (!charData.abilities || Object.keys(charData.abilities).length === 0) {
-            const initialAbilities = {};
-            ABILITIES_LIST.forEach(ability => {
-                initialAbilities[ability] = 0;
-            });
-            handleChange({ abilities: initialAbilities });
-        }
-    }, []);
-
-    const rollAllAbilities = useCallback(() => {
-        // Prevent multiple clicks while rolling
-        if (isRollingAll) return;
-
-        // Set rolling state to true to trigger animations
-        setIsRollingAll(true);
-
-        // Generate new ability scores
-        const newAbilities = { ...charData.abilities };
-
-        // Roll for each ability
-        ABILITIES_LIST.forEach(abilityName => {
-            // Roll the dice and get a new value
-            newAbilities[abilityName] = rollAbilityScore();
-        });
-
-        // Update the parent component with all new scores at once
-        handleChange({ abilities: newAbilities });
-
-        // Reset the rolling state after a delay
-        setTimeout(() => {
-            setIsRollingAll(false);
-        }, 1000);
-    }, [isRollingAll, charData.abilities, handleChange]);
+    // Use the dice roller hook
+    const { isRolling, rollAll } = useDiceRoller({
+        abilities: charData.abilities || {},
+        onRollComplete: updateAbilities,
+        abilitiesList: ABILITIES_LIST
+    });
 
     return (
         <Box
@@ -77,8 +55,9 @@ function RollStep({ charData, handleChange, abilityModifiers = {} }) {
             <Button
                 variant="contained"
                 color="primary"
-                onClick={rollAllAbilities}
+                onClick={rollAll}
                 sx={{ mb: 2 }}
+                disabled={isRolling}
             >
                 Roll All Abilities
             </Button>
@@ -94,13 +73,12 @@ function RollStep({ charData, handleChange, abilityModifiers = {} }) {
                         modifier={abilityModifiers[abilityName] || 0}
                         value={charData.abilities?.[abilityName] || 0}
                         onValueChange={(newValue) => updateAbilityScore(abilityName, newValue)}
-                        triggerRoll={isRollingAll || false}
+                        triggerRoll={isRolling || false}
                     />
                 ))}
             </FormGroup>
         </Box>
     );
-
 }
 
 export default RollStep;
