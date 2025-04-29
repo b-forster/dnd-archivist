@@ -70,21 +70,8 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
             const result = await response.json();
             console.log("Character saved successfully:", result);
 
-            // Notify parent that a character was created
-            if (onCharacterCreated) {
-                console.log("Calling onCharacterCreated callback");
-                onCharacterCreated();
-            } else {
-                console.warn("onCharacterCreated callback not provided");
-            }
-
-            // Close modal if provided
-            if (onComplete) {
-                console.log("Calling onComplete callback");
-                onComplete();
-            } else {
-                console.warn("onComplete callback not provided");
-            }
+            onCharacterCreated?.();
+            onComplete?.();
 
         } catch (error) {
             console.error("Error saving character:", error);
@@ -171,11 +158,6 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
         }
         handleNext();
     };
-
-    // const handleReset = () => {
-    //     setActiveStep(0);
-    //     setCompleted({});
-    // };
 
     return (
         <Box sx={{ width: '100%' }} onSubmit={handleSave}>

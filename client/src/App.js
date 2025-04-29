@@ -13,20 +13,17 @@ function App() {
     useEffect(() => {
         // Fetch characters when component mounts or refreshTrigger changes
         fetchCharacters();
-        console.log("Fetching characters, refreshTrigger:", refreshTrigger);
     }, [refreshTrigger]);
 
     const fetchCharacters = async () => {
         setLoading(true);
         setError(null);
         try {
-            console.log("Making API request to fetch characters");
             const response = await fetch("http://localhost:4000/characters");
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
-            console.log("Characters fetched successfully:", data);
             setCharacters(data);
         } catch (error) {
             console.error("Error fetching characters:", error);
@@ -38,7 +35,6 @@ function App() {
 
     // Function to pass to CreateCharWizard to trigger refresh
     const onCharacterCreated = () => {
-        console.log("Character created! Triggering refresh...");
         setRefreshTrigger(prev => prev + 1);
     };
 
