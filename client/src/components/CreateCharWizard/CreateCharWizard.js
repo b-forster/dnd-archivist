@@ -141,8 +141,8 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
 
     const validateRollStep = () => {
         if (!charData.abilities) return false;
-        // Check if at least one ability score is non-zero
-        return Object.values(charData.abilities).some(score => score > 0);
+        // Verify every score is non-zero
+        return Object.values(charData.abilities).every(score => score > 0);
     };
 
     // Get validation function for current step

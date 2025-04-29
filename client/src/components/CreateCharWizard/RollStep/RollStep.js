@@ -1,33 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import {
     Box, FormGroup, Button,
 } from '@mui/material';
-import { ABILITIES_LIST, ABILITIES } from 'constants';
+import { ABILITIES_LIST } from 'constants';
+import { rollAbilityScore, getRandomDelay } from '../../../utils/diceUtils';
 import AbilityRow from '../../AbilityRow/AbilityRow';
 
-
+/**
+ * RollStep component for rolling ability scores in character creation
+ * 
+ * @param {Object} props - Component props
+ * @param {Object} props.charData - Character data object
+ * @param {Function} props.handleChange - Function to update character data
+ * @param {Object} props.abilityModifiers - Modifiers for each ability
+ * @returns {JSX.Element} The RollStep component
+ */
 function RollStep({ charData, handleChange, abilityModifiers = {} }) {
-    // Function to update a specific ability score in the parent component
-    const updateAbilityScore = (abilityName, score) => {
+    const [isRollingAll, setIsRollingAll] = useState(false);
+
+    /**
+     * Update a specific ability score in the parent component
+     * 
+     * @param {string} abilityName - The name of the ability to update
+     * @param {number} score - The new score value
+     */
+    const updateAbilityScore = useCallback((abilityName, score) => {
         const newAbilities = { ...charData.abilities, [abilityName]: score };
         handleChange({ abilities: newAbilities });
-    };
+    }, [charData.abilities, handleChange]);
 
-    // Roll for all abilities at once
-    const rollAllAbilities = () => {
-        const newAbilities = {};
-
-        ABILITIES_LIST.forEach(abilityName => {
-            // Roll 4d6, drop lowest, sum the rest
-            const rolls = Array(4).fill(0).map(() => Math.ceil(Math.random() * 6));
-            rolls.sort((a, b) => a - b);
-            const sum = rolls.slice(1).reduce((total, roll) => total + roll, 0);
-            newAbilities[abilityName] = sum;
-        });
-
-        handleChange({ abilities: newAbilities });
-    };
-
+    /**
+     * Roll for all abilities at once
+     */
     // Initialize abilities object if it doesn't exist
     useEffect(() => {
         if (!charData.abilities || Object.keys(charData.abilities).length === 0) {
@@ -38,6 +42,31 @@ function RollStep({ charData, handleChange, abilityModifiers = {} }) {
             handleChange({ abilities: initialAbilities });
         }
     }, []);
+
+    const rollAllAbilities = useCallback(() => {
+        // Prevent multiple clicks while rolling
+        if (isRollingAll) return;
+
+        // Set rolling state to true to trigger animations
+        setIsRollingAll(true);
+
+        // Generate new ability scores
+        const newAbilities = { ...charData.abilities };
+
+        // Roll for each ability
+        ABILITIES_LIST.forEach(abilityName => {
+            // Roll the dice and get a new value
+            newAbilities[abilityName] = rollAbilityScore();
+        });
+
+        // Update the parent component with all new scores at once
+        handleChange({ abilities: newAbilities });
+
+        // Reset the rolling state after a delay
+        setTimeout(() => {
+            setIsRollingAll(false);
+        }, 1000);
+    }, [isRollingAll, charData.abilities, handleChange]);
 
     return (
         <Box
@@ -57,13 +86,15 @@ function RollStep({ charData, handleChange, abilityModifiers = {} }) {
             <FormGroup
                 sx={{ marginTop: '0.5em' }}
             >
-                {ABILITIES_LIST.map((abilityName) => (
+                {ABILITIES_LIST.map((abilityName, index) => (
                     <AbilityRow
                         name={abilityName}
-                        key={abilityName}
+                        key={index}
+                        index={index}
                         modifier={abilityModifiers[abilityName] || 0}
                         value={charData.abilities?.[abilityName] || 0}
                         onValueChange={(newValue) => updateAbilityScore(abilityName, newValue)}
+                        triggerRoll={isRollingAll || false}
                     />
                 ))}
             </FormGroup>
