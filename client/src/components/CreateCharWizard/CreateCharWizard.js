@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import useStepperNavigation from '../../hooks/useStepperNavigation';
+import useCharacterSubmission from '../../hooks/useCharacterSubmission';
 import './CreateCharWizard.css';
 import RaceStep from './RaceStep/RaceStep';
 import ClassStep from './ClassStep/ClassStep';
@@ -18,160 +20,90 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
         gender: '',
         abilities: {},
     });
-    const [validationErrors, setValidationErrors] = useState([]);
+    // Use the character submission hook
+    const { validationErrors, isSubmitting, handleSave } = useCharacterSubmission({
+        onSuccess: onCharacterCreated,
+        onComplete: onComplete
+    });
 
     const handleSetCharData = (updatedFields) => {
         setCharData({ ...charData, ...updatedFields });
     }
 
     const steps = [
-        { name: 'Race', label: 'Select Race' },
-        { name: 'Class', label: 'Select Class' },
-        { name: 'Details', label: 'Character Details' },
-        { name: 'Stats', label: 'Roll for Stats' },
+        {
+            name: 'Race',
+            label: 'Select Race',
+            component: () => <RaceStep charData={charData} handleChange={handleSetCharData} />,
+            validate: () => charData.race !== ''
+        },
+        {
+            name: 'Class',
+            label: 'Select Class',
+            component: () => <ClassStep charData={charData} handleChange={handleSetCharData} />,
+            validate: () => charData.class !== ''
+        },
+        {
+            name: 'Details',
+            label: 'Character Details',
+            component: () => <StoryStep charData={charData} handleChange={handleSetCharData} />,
+            validate: () => charData.name !== '' && charData.gender !== ''
+        },
+        {
+            name: 'Stats',
+            label: 'Roll for Stats',
+            component: () => <RollStep charData={charData} handleChange={handleSetCharData} />,
+            validate: () => {
+                if (!charData.abilities) return false;
+                // Verify every score is non-zero
+                return Object.values(charData.abilities).every(score => score > 0);
+            }
+        },
     ];
 
     // Render the active step component
     const getStepContent = (step) => {
-        switch (step) {
-            case 0:
-                return <RaceStep charData={charData} handleChange={handleSetCharData} />;
-            case 1:
-                return <ClassStep charData={charData} handleChange={handleSetCharData} />;
-            case 2:
-                return <StoryStep charData={charData} handleChange={handleSetCharData} />;
-            case 3:
-                return <RollStep charData={charData} handleChange={handleSetCharData} />;
-            default:
-                return 'Unknown step';
+        if (step >= 0 && step < steps.length) {
+            return steps[step].component();
         }
+        return 'Unknown step';
     };
 
-    async function handleSave(e) {
-        // If called from a form submit event, prevent default behavior
-        if (e && e.preventDefault) {
-            e.preventDefault();
-        }
-
-        console.log("Saving character data:", charData);
-
-        // Clear any previous validation errors
-        setValidationErrors([]);
-
-        try {
-            const response = await fetch("http://localhost:4000/characters/add", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(charData),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                // Handle validation errors from server
-                if (response.status === 400 && result.errors) {
-                    setValidationErrors(result.errors);
-                    return; // Don't proceed if there are validation errors
-                } else {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-            }
-
-            console.log("Character saved successfully:", result);
-
-            onCharacterCreated?.();
-            onComplete?.();
-
-        } catch (error) {
-            console.error("Error saving character:", error);
-            setValidationErrors(["Failed to save character. Please try again."]);
-        }
-    }
-
-
-    const [activeStep, setActiveStep] = React.useState(0);
-    const [completed, setCompleted] = React.useState({})
-
-    const totalSteps = () => {
-        return steps.length;
+    // Function to save the character data
+    const saveCharacter = (e) => {
+        handleSave(charData, e);
     };
 
-    const completedSteps = () => {
-        return Object.keys(completed).length;
-    };
 
-    const isLastStep = () => {
-        return completedSteps() === totalSteps() - 1;
-    };
-
-    const allStepsCompleted = () => {
-        return completedSteps() === totalSteps();
-    };
-
-    const handleNext = () => {
-        if (allStepsCompleted()) return;
-        const newActiveStep = (activeStep + 1) % totalSteps();
-        setActiveStep(newActiveStep);
-    };
-
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
-    const handleStep = (step) => () => {
-        setActiveStep(step);
-    };
-
-    // Validation functions for each step
-    const validateRaceStep = () => {
-        return charData.race !== '';
-    };
-
-    const validateClassStep = () => {
-        return charData.class !== '';
-    };
-
-    const validateStoryStep = () => {
-        return charData.name !== '' && charData.gender !== '';
-    };
-
-    const validateRollStep = () => {
-        if (!charData.abilities) return false;
-        // Verify every score is non-zero
-        return Object.values(charData.abilities).every(score => score > 0);
-    };
-
-    // Get validation function for current step
+    // Get validation result for current step
     const getStepValidation = (step) => {
-        switch (step) {
-            case 0:
-                return validateRaceStep();
-            case 1:
-                return validateClassStep();
-            case 2:
-                return validateStoryStep();
-            case 3:
-                return validateRollStep();
-            default:
-                return true;
+        if (step >= 0 && step < steps.length) {
+            return steps[step].validate();
         }
+        return true;
     };
 
-    const handleComplete = () => {
-        if (getStepValidation(activeStep)) {
-            const newCompleted = { ...completed };
-            newCompleted[activeStep] = true;
-            setCompleted(newCompleted);
-            // Only save character data if we're completing the final step
-            if (allStepsCompleted()) handleSave();
-        }
-        handleNext();
-    };
+    // Use the custom stepper navigation hook
+    const {
+        activeStep,
+        completed,
+        totalSteps,
+        completedSteps,
+        isLastStep,
+        allStepsCompleted,
+        handleNext,
+        handleBack,
+        handleStep,
+        isCurrentStepValid,
+        handleComplete
+    } = useStepperNavigation(
+        steps,
+        () => saveCharacter(), // Called when all steps are completed
+        getStepValidation
+    );
 
     return (
-        <Box sx={{ width: '100%' }} onSubmit={handleSave}>
+        <Box sx={{ width: '100%' }} onSubmit={saveCharacter}>
             <Stepper nonLinear activeStep={activeStep}>
                 {steps.map(({ label }, index) => (
                     <Step key={label} completed={completed[index]}>
@@ -216,7 +148,11 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
                                 Back
                             </Button>
                             <Box sx={{ flex: '1 1 auto' }} />
-                            <Button onClick={handleComplete} disabled={isLastStep() && !getStepValidation(activeStep)} sx={{ mr: 1 }}>
+                            <Button
+                                onClick={handleComplete}
+                                disabled={(isLastStep() && !isCurrentStepValid()) || isSubmitting}
+                                sx={{ mr: 1 }}
+                            >
                                 {isLastStep() ? 'Finish' : 'Next'}
                             </Button>
                         </Box>
