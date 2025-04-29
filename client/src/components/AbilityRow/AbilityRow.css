@@ -18,11 +18,15 @@
 .d20-img-link img {
     width: 1.5em;
     border-radius: 50%;
+    /* Apply a pink filter to match the theme */
+    filter: hue-rotate(330deg) saturate(1.5);
 }
 
 .d20-img-link img:hover {
-    background-color: lightgoldenrodyellow;
-    box-shadow: 0px 0px 6px 3px lightgoldenrodyellow;
+    background-color: rgba(255, 48, 131, 0.1);
+    /* Pink with transparency */
+    box-shadow: 0px 0px 6px 3px rgba(255, 48, 131, 0.3);
+    /* Pink with transparency */
 }
 
 /* Define animation properties */
