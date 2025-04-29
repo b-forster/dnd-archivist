@@ -5,7 +5,7 @@ import ClassStep from './ClassStep/ClassStep';
 import StoryStep from './StoryStep/StoryStep';
 import RollStep from './RollStep/RollStep';
 import {
-    Box, Button, Step, Stepper, Typography, StepButton
+    Box, Button, Step, Stepper, Typography, StepButton, Alert
 } from '@mui/material';
 
 
@@ -18,6 +18,7 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
         gender: '',
         abilities: {},
     });
+    const [validationErrors, setValidationErrors] = useState([]);
 
     const handleSetCharData = (updatedFields) => {
         setCharData({ ...charData, ...updatedFields });
@@ -54,6 +55,9 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
 
         console.log("Saving character data:", charData);
 
+        // Clear any previous validation errors
+        setValidationErrors([]);
+
         try {
             const response = await fetch("http://localhost:4000/characters/add", {
                 method: "POST",
@@ -63,11 +67,18 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
                 body: JSON.stringify(charData),
             });
 
+            const result = await response.json();
+
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                // Handle validation errors from server
+                if (response.status === 400 && result.errors) {
+                    setValidationErrors(result.errors);
+                    return; // Don't proceed if there are validation errors
+                } else {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
             }
 
-            const result = await response.json();
             console.log("Character saved successfully:", result);
 
             onCharacterCreated?.();
@@ -75,7 +86,7 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
 
         } catch (error) {
             console.error("Error saving character:", error);
-            alert("Failed to save character. Please try again.");
+            setValidationErrors(["Failed to save character. Please try again."]);
         }
     }
 
@@ -171,6 +182,16 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
                 ))}
             </Stepper>
             <div>
+                {validationErrors.length > 0 && (
+                    <Box sx={{ mt: 2, mb: 1 }}>
+                        {validationErrors.map((error, index) => (
+                            <Alert key={index} severity="error" sx={{ mb: 1 }}>
+                                {error}
+                            </Alert>
+                        ))}
+                    </Box>
+                )}
+
                 {allStepsCompleted() ? (
                     <React.Fragment>
                         <Typography sx={{ mt: 2, mb: 1 }}>

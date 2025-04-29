@@ -7,6 +7,9 @@ const dbClient = require("../db/conn");
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+// Import character validation middleware
+const { validateCharacter } = require("../middleware/characterValidation");
+
 // @route   GET characters/test
 // @desc    Tests characters route
 // @access  Public
@@ -37,7 +40,7 @@ characterRoutes.route("/characters").get(async function (req, res) {
 // });
 
 // This section will help you create a new character.
-characterRoutes.route("/characters/add").post(async function (req, res) {
+characterRoutes.route("/characters/add").post(validateCharacter, async function (req, res) {
     try {
         let db_connect = dbClient.db("db");
         let myobj = req.body;
