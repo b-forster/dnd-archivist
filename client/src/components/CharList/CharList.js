@@ -51,14 +51,7 @@ const CharList = ({ characters = [] }) => {
                     }}>
                         {characters.map((char, index) => (
                             <React.Fragment key={char._id || index}>
-                                <ListItem
-                                    sx={{
-                                        textAlign: 'center',
-                                        '&:hover': {
-                                            color: 'error.main',
-                                        }
-                                    }}
-                                >
+                                <ListItem>
                                     <ListItemText
                                         primary={
                                             <Typography component="span">

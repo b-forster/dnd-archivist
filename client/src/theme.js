@@ -27,11 +27,11 @@ const theme = createTheme({
             contrastText: '#fff',
         },
         warning: {
-            main: '#fbc411',
+            main: '#fbc411', // Gold
             contrastText: '#000',
         },
         success: {
-            main: '#40cbc4',
+            main: '#40cbc4', // Aqua
             contrastText: '#000',
         },
         background: {
@@ -66,8 +66,19 @@ const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
+                    backgroundColor: '#1867b5', // Medium blue
+                    color: '#fff',
                     borderRadius: 4,
                     textTransform: 'none',
+                    '&.Mui-disabled': {
+                        color: '#97bcf4', // Light blue
+                        backgroundColor: 'transparent',
+                        border: '1px dashed #97bcf4', // Light blue
+                        opacity: 0.7, // Add some opacity to indicate it's disabled
+                    },
+                    '&:hover': {
+                        backgroundColor: '#61429e', // Purple
+                    },
                 },
             },
         },
@@ -83,6 +94,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderBottom: '1px solid #333',
+                    textAlign: 'center',
                     '&:last-child': {
                         borderBottom: 'none',
                     },
