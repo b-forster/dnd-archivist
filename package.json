@@ -17,8 +17,7 @@
         "build": "cd client && npm run build",
         "test": "cd client && npm test",
         "lint": "eslint .",
-        "postinstall": "npm run install:all",
-        "install:all": "npm run install:client && npm run install:server",
+        "setup": "npm run install:client && npm run install:server",
         "install:client": "cd client && npm install",
         "install:server": "cd server && npm install"
     },
