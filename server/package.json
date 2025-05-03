@@ -2,6 +2,7 @@
   "name": "dnd-archivist-server",
   "version": "1.0.0",
   "description": "Backend server for D&D Archivist application",
+  "type": "module",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -21,5 +22,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.2",
     "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
