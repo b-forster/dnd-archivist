@@ -7,7 +7,14 @@ const app = express();
 config({ path: './config.env' });
 
 const port = process.env.PORT || 4000;
-app.use(cors({ origin: true, credentials: true }));
+// Configure CORS
+const corsOptions = {
+    origin: process.env.NODE_ENV === 'production'
+        ? ['https://dnd-archivist.vercel.app', 'https://dnd-archivist-git-main.vercel.app']
+        : 'http://localhost:3000',
+    credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true,

@@ -3,6 +3,7 @@ import { Box, Typography, CircularProgress, useTheme } from '@mui/material';
 import { Header, Modal } from './components';
 import CharList from 'components/CharList/CharList';
 import Footer from 'components/Footer/Footer';
+import { API_BASE_URL, ENDPOINTS } from './constants';
 
 function App() {
     const theme = useTheme();
@@ -20,7 +21,7 @@ function App() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("http://localhost:4000/characters");
+            const response = await fetch(`${API_BASE_URL}${ENDPOINTS.CHARACTERS}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

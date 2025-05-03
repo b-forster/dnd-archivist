@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_BASE_URL, ENDPOINTS } from '../constants';
 
 /**
  * Custom hook for handling character submission
@@ -28,7 +29,7 @@ export default function useCharacterSubmission({ onSuccess, onComplete }) {
         setValidationErrors([]);
 
         try {
-            const response = await fetch("http://localhost:4000/characters/add", {
+            const response = await fetch(`${API_BASE_URL}${ENDPOINTS.CHARACTERS}/add`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

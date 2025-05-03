@@ -1,3 +1,13 @@
+// API endpoints
+export const API_BASE_URL = process.env.NODE_ENV === 'production'
+    ? 'https://dnd-archivist-server.vercel.app' // In production, use the server's URL
+    : 'http://localhost:4000'; // In development, use the local server
+
+export const ENDPOINTS = {
+    CHARACTERS: '/characters',
+};
+
+// D&D data
 // from https://api.open5e.com/v1/races/
 
 const RACES = {
