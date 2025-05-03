@@ -2,7 +2,7 @@
  * Middleware for validating character data before saving to database
  */
 
-const validateCharacter = (req, res, next) => {
+export const validateCharacter = (req, res, next) => {
     const character = req.body;
     const errors = [];
 
@@ -48,8 +48,4 @@ const validateCharacter = (req, res, next) => {
 
     // If validation passes, continue to the next middleware/route handler
     next();
-};
-
-module.exports = {
-    validateCharacter
 };

@@ -1,14 +1,14 @@
-const express = require("express");
+import express from "express";
 const characterRoutes = express.Router();
 
 // This will help us connect to the database
-const dbClient = require("../db/conn");
+import dbClient from "../db/conn.js";
 
 // This help convert the id from string to ObjectId for the _id.
-const ObjectId = require("mongodb").ObjectId;
+import { ObjectId } from "mongodb";
 
 // Import character validation middleware
-const { validateCharacter } = require("../middleware/characterValidation");
+import { validateCharacter } from "../middleware/characterValidation.js";
 
 // @route   GET characters/test
 // @desc    Tests characters route
@@ -83,4 +83,4 @@ characterRoutes.route("/characters/add").post(validateCharacter, async function 
 //     });
 // });
 
-module.exports = characterRoutes;
+export default characterRoutes;

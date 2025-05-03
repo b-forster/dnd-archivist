@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+import { MongoClient, ServerApiVersion } from "mongodb";
 // const uri = process.env.ATLAS_URI;
 const uri = "mongodb+srv://b-forster:i2RdzyJ4QZ4xOnMj@dnd-archivist.rlmofac.mongodb.net/?retryWrites=true&w=majority";
 
@@ -11,4 +11,4 @@ const client = new MongoClient(uri, {
     }
 });
 
-module.exports = client;
+export default client;
