@@ -28,12 +28,11 @@ export const validateCharacter = (req, res, next) => {
         errors.push('You must roll for ability scores before creating your character');
     } else {
         // Check if all required abilities are present and have valid values
-        // Using lowercase for ability names to match the client-side implementation
-        const requiredAbilities = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+        const requiredAbilities = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
 
         for (const ability of requiredAbilities) {
             if (!character.abilities[ability] || typeof character.abilities[ability] !== 'number' || character.abilities[ability] <= 0) {
-                errors.push(`You must roll for ${ability.charAt(0).toUpperCase() + ability.slice(1)}`);
+                errors.push(`You must roll for ${ability}`);
             }
         }
     }
