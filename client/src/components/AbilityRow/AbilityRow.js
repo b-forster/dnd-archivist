@@ -7,6 +7,7 @@ import {
     getAnimationDuration
 } from '../../utils/diceUtils';
 import {
+    ButtonBase,
     Input, InputLabel, Slider,
 } from '@mui/material';
 
@@ -171,9 +172,9 @@ const AbilityRow = ({
                 {abilityName}:
             </InputLabel>
 
-            <a className="d20-img-link" onClick={handleDiceClick}>
+            <ButtonBase className="d20-img-link" onClick={handleDiceClick}>
                 <img src="images/d20.png" className={isShaking ? shakeClass : ''} alt={`click dice to roll for${abilityName}`} />
-            </a>
+            </ButtonBase>
 
             <Input
                 type="number"

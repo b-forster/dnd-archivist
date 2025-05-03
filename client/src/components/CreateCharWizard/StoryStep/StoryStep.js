@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-    Box, FormControl, FormControlLabel, FormLabel, InputLabel, Radio, RadioGroup, TextField,
+    Box, FormControlLabel, FormLabel, InputLabel, Radio, RadioGroup, TextField,
 } from '@mui/material';
-import { pink, blue, green } from '@mui/material/colors';
 
 function StoryStep({ charData, handleChange }) {
 

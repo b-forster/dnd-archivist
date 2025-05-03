@@ -87,11 +87,8 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
     const {
         activeStep,
         completed,
-        totalSteps,
-        completedSteps,
         isLastStep,
         allStepsCompleted,
-        handleNext,
         handleBack,
         handleStep,
         isCurrentStepValid,

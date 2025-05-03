@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, CircularProgress, useTheme } from '@mui/material';
+import { Box, Typography, CircularProgress } from '@mui/material';
 import { Header, Modal } from './components';
 import CharList from 'components/CharList/CharList';
 import Footer from 'components/Footer/Footer';
 import { API_BASE_URL, ENDPOINTS } from './constants';
 
 function App() {
-    const theme = useTheme();
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);

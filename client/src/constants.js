@@ -64,7 +64,7 @@ const RACES = {
                         'value': 1
                     }
                 ],
-                'desc': 'Stoor halflings earn their moniker from an archaic word for \"strong\" or \"large,\" and indeed the average stoor towers some six inches taller than their lightfoot cousins. They are also particularly hardy by halfling standards, famous for being able to hold down the strongest dwarven ales, for which they have also earned a reputation of relative boorishness. Still, most stoor halflings are good natured and simple folk, and any lightfoot would be happy to have a handful of stoor cousins to back them up in a barroom brawl.'
+                'desc': 'Stoor halflings earn their moniker from an archaic word for "strong" or "large," and indeed the average stoor towers some six inches taller than their lightfoot cousins. They are also particularly hardy by halfling standards, famous for being able to hold down the strongest dwarven ales, for which they have also earned a reputation of relative boorishness. Still, most stoor halflings are good natured and simple folk, and any lightfoot would be happy to have a handful of stoor cousins to back them up in a barroom brawl.'
             },
             'Lightfoot': {
                 'modifiers': [
@@ -203,7 +203,7 @@ const RACES = {
                         'value': 1
                     }
                 ],
-                'desc': "It\'s often said curiosity killed the cat, and this applies with equal frequency to catfolk.As a malkin catfolk you are adept at finding clever solutions to escape difficult situations, even(or perhaps especially) situations of your own making.Your diminutive size also gives you an uncanny nimbleness that helps you avoid the worst consequences of your intense inquisitiveness.Most often found in densely populated regions, these catfolk are as curious about the comings and goings of other humanoids as they are about natural or magical phenomena and artifacts. While malkins are sometimes referred to as \"housecats\" by other humanoids and even by other catfolk, doing so in a malkin's hearing is a surefire way to get a face full of claws...",
+                'desc': 'It\'s often said curiosity killed the cat, and this applies with equal frequency to catfolk. As a malkin catfolk you are adept at finding clever solutions to escape difficult situations, even(or perhaps especially) situations of your own making. Your diminutive size also gives you an uncanny nimbleness that helps you avoid the worst consequences of your intense inquisitiveness. Most often found in densely populated regions, these catfolk are as curious about the comings and goings of other humanoids as they are about natural or magical phenomena and artifacts. While malkins are sometimes referred to as "housecats" by other humanoids and even by other catfolk, doing so in a malkin\'s hearing is a surefire way to get a face full of claws...',
             },
             'Pantheran': {
                 'modifiers': [

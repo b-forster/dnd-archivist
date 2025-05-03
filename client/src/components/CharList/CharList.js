@@ -7,11 +7,9 @@ import {
     Paper,
     Box,
     Divider,
-    useTheme
 } from '@mui/material';
 
 const CharList = ({ characters = [] }) => {
-    const theme = useTheme();
 
     return (
         <Box sx={{

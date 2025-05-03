@@ -4,12 +4,13 @@ import {
 } from '@mui/material';
 import { RACES, RACES_LIST, ABILITIES, ABILITIES_LIST } from 'constants';
 
+// Create a stable empty modifiers object outside the component
+const createEmptyModifiers = () => Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
 
 function RaceStep({ charData, handleChange }) {
     /*** SETS RACE/SUBRACE AND ASSOCIATED ABILITY MODIFIERS ***/
 
-    let initialAbilityModifiers = Object.fromEntries(ABILITIES_LIST.map(abilityName => [abilityName, 0]));
-    const [abilityModifiers, setAbilityModifiers] = useState(initialAbilityModifiers);
+    const [abilityModifiers, setAbilityModifiers] = useState(createEmptyModifiers());
 
     const handleSelectRace = (e) => {
         let raceName = e.target.value;
@@ -25,9 +26,16 @@ function RaceStep({ charData, handleChange }) {
         handleChange({ subrace: subraceName });
     };
 
-    const updateAbilityModifiers = (modifiersArr) => {
-        let newModifiersObj = { ...initialAbilityModifiers };
-        for (let modifierObj of modifiersArr) {
+    // Update ability modifiers when race or subrace changes
+    useEffect(() => {
+        let raceModifiers = RACES[charData.race]?.['modifiers'] || [];
+        let subraceModifiers = RACES[charData.race]?.['subraces']?.[charData.subrace]?.['modifiers'] || [];
+
+        // Calculate new modifiers
+        let newModifiersObj = createEmptyModifiers();
+        const allModifiers = [...raceModifiers, ...subraceModifiers];
+
+        for (let modifierObj of allModifiers) {
             let abilityName = modifierObj?.['attr'];
             if (ABILITIES[abilityName]) {
                 newModifiersObj[abilityName] = newModifiersObj[abilityName] + modifierObj['value'];
@@ -35,21 +43,23 @@ function RaceStep({ charData, handleChange }) {
                 // TODO: Handle case where user can select which ability to modify (abilityName = 'Any')
             }
         }
+
         setAbilityModifiers(newModifiersObj);
-    };
+    }, [charData.race, charData.subrace]);
 
     // Update combined race+subrace ability modifiers when either state changes
     useEffect(() => {
         let raceModifiers = RACES[charData.race]?.['modifiers'] || [];
         let subraceModifiers = RACES[charData.race]?.['subraces']?.[charData.subrace]?.['modifiers'] || [];
 
-        updateAbilityModifiers([...raceModifiers, ...subraceModifiers]);
+        setAbilityModifiers([...raceModifiers, ...subraceModifiers]);
     }, [charData]);
 
     /*** HELPER FUNCTIONS ***/
 
     const getSubraces = () => {
         let subraces = RACES[charData.race]?.['subraces'];
+        console.log(abilityModifiers)
         return subraces ? Object.keys(subraces) : [];
     };
 
