@@ -19,6 +19,7 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
         class: '',
         gender: '',
         abilities: {},
+        lvl: 1,
     });
     // Use the character submission hook
     const { validationErrors, isSubmitting, handleSave } = useCharacterSubmission({
