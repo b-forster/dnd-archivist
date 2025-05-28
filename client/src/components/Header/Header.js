@@ -52,9 +52,9 @@ const Header = memo(() => {
                 <Typography
                     variant="h2"
                     sx={{
-                        fontFamily: '"Macondo", serif',
+                        fontFamily: '"Asul", serif',
                         fontWeight: 'normal',
-                        fontStyle: 'italic',
+                        // fontStyle: 'italic',
                         margin: 0
                     }}
                 >

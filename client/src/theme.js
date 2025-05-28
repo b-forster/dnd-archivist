@@ -44,21 +44,21 @@ const theme = createTheme({
         },
     },
     typography: {
-        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        fontFamily: '"Asul", "Helvetica", "Arial", sans-serif',
         h1: {
             fontFamily: '"Lugrasimo", cursive',
             color: '#61429e', // Purple
         },
         h2: {
-            fontFamily: '"Macondo", serif',
+            fontFamily: '"Asul", serif',
             fontWeight: 'normal',
             fontSize: '1.5rem',
             color: '#97bcf4', // Light blue
 
         },
         h3: {
-            fontFamily: '"Lugrasimo", cursive',
-            fontSize: '1.5rem',
+            fontFamily: '"Asul", "Helvetica", "Arial", sans-serif',
+            fontSize: '2rem',
             color: '#1867b5', // Medium blue
         },
     },
