@@ -1,5 +1,5 @@
-/* 
-   This file is kept for reference but all styles are now handled 
-   through Material UI's styling system using the theme.
-   See CharList.js for the implementation.
-*/
+.classIcon {
+   display: inline-block;
+   margin-left: 0.3em;
+   vertical-align: middle;
+}

@@ -1,4 +1,6 @@
 import React from 'react';
+import './CharList.css';
+import { CLASSES } from 'constants';
 import {
     List,
     ListItem,
@@ -63,7 +65,7 @@ const CharList = ({ characters = [] }) => {
                                             >
                                                 <Box component="span" fontWeight="bold">
                                                     {char.name}</Box>
-                                                - {char.race} {char.class}
+                                                &nbsp;- Lvl {char.level || 1} {char.race} {char.class} <span className='classIcon'>{CLASSES[char.class].icon}</span>
                                             </Typography>
                                         }
                                     />
