@@ -1,6 +1,6 @@
 <p align="center">
-   <img width="400" alt="Landing page with character list and Create Character button" src="https://github.com/user-attachments/assets/0135b503-1590-4d2c-baf6-61d532161600" />
-   <img width="400" alt="Roll for Abilities step of Character Creation wizard" src="https://github.com/user-attachments/assets/8b6344d9-94ad-42fa-aa00-2f54bea18c12" />
+   <img width="400" alt="Landing page with character list and Create Character button" src="https://github.com/user-attachments/assets/b7dbca07-1b18-4b0c-ac24-31d2fff6d380" />
+   <img width="400" alt="Roll for Abilities step of Character Creation wizard" src="https://github.com/user-attachments/assets/6b37ad38-f970-405a-ba6a-eafe352aa444" />
 </p>
 
 # Description
