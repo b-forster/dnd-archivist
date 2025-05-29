@@ -102,10 +102,55 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
 
     return (
         <Box sx={{ width: '100%' }} onSubmit={saveCharacter}>
-            <Stepper nonLinear activeStep={activeStep}>
+            <Stepper
+                nonLinear
+                activeStep={activeStep}
+                sx={{
+                    '& .MuiStepLabel-root .Mui-completed': {
+                        color: 'text.primary',
+                    },
+                    '& .MuiStepLabel-root .Mui-active': {
+                        color: 'text.secondary',
+                    },
+                    '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                        fill: 'white', // text color for active step icon
+                    },
+                }}
+            >
                 {steps.map(({ label }, index) => (
-                    <Step key={label} completed={completed[index]}>
-                        <StepButton color="inherit" onClick={handleStep(index)}>
+                    <Step
+                        key={label}
+                        completed={completed[index]}
+                        sx={{
+                            '& .MuiStepIcon-root': {
+                                color: 'text.primary', // default step icon color
+                            },
+                            '& .MuiStepIcon-root.Mui-active': {
+                                color: 'primary.main', // active step icon color
+                            },
+                            '& .MuiStepIcon-root.Mui-completed': {
+                                color: 'text.disabled',
+                            },
+                        }}
+                    >
+                        <StepButton
+                            color="inherit"
+                            onClick={handleStep(index)}
+                            sx={{
+                                '&:hover': {
+                                    backgroundColor: 'rgba(111, 84, 175, 0.1)', // primary color with opacity
+                                },
+                                '& .MuiStepLabel-label': {
+                                    color: 'text.primary',
+                                },
+                                '& .MuiStepLabel-label.Mui-active': {
+                                    color: 'primary.main',
+                                },
+                                '& .MuiStepLabel-label.Mui-completed': {
+                                    color: 'text.disabled',
+                                }
+                            }}
+                        >
                             {label}
                         </StepButton>
                     </Step>
@@ -141,7 +186,7 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
                                 color="inherit"
                                 disabled={activeStep === 0}
                                 onClick={handleBack}
-                                sx={{ mr: 1 }}
+                                sx={{ mr: 1, color: 'white', backgroundColor: 'secondary.main' }}
                             >
                                 Back
                             </Button>
@@ -149,7 +194,7 @@ function CreateCharWizard({ onCharacterCreated, onComplete }) {
                             <Button
                                 onClick={handleComplete}
                                 disabled={(isLastStep() && !isCurrentStepValid()) || isSubmitting}
-                                sx={{ mr: 1 }}
+                                sx={{ mr: 1, color: 'white', backgroundColor: 'secondary.main' }}
                             >
                                 {isLastStep() ? 'Finish' : 'Next'}
                             </Button>

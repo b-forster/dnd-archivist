@@ -206,6 +206,7 @@ const AbilityRow = ({
                 min={1}
                 max={20}
                 sx={{ width: '10em', marginLeft: '1em' }}
+                color='secondary'
             />
         </div>
     );

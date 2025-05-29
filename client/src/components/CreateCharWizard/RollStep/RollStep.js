@@ -53,13 +53,11 @@ function RollStep({ charData, handleChange, abilityModifiers = {} }) {
             autoComplete="off"
         >
             <Button
-                variant="contained"
-                color="primary"
                 onClick={rollAll}
-                sx={{ mb: 2 }}
+                sx={{ color: 'white', padding: '0.5em 2em' }}
                 disabled={isRolling}
             >
-                Roll All Abilities
+                Roll All
             </Button>
 
             <FormGroup

@@ -1,6 +1,6 @@
 .abilities-input-row {
     display: grid;
-    grid-template-columns: 1fr auto auto auto auto;
+    grid-template-columns: 0.5fr auto auto auto auto;
     align-items: end;
 }
 
