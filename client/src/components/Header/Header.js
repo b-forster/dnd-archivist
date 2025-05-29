@@ -18,7 +18,7 @@ const Header = memo(() => {
             {/* Logo on the left */}
             <Box component="figure" sx={{
                 margin: 0,
-                marginRight: '2rem',
+                marginRight: '1rem',
                 display: 'flex',
                 alignItems: 'center'
             }}>
@@ -38,26 +38,13 @@ const Header = memo(() => {
                 <Typography
                     variant="h1"
                     sx={{
-                        color: 'primary.main',
-                        fontFamily: '"Lugrasimo", cursive',
-                        fontSize: '6em',
-                        fontStyle: 'normal',
-                        margin: 0,
                         lineHeight: 1
                     }}
                 >
                     Archivist
                 </Typography>
 
-                <Typography
-                    variant="h2"
-                    sx={{
-                        fontFamily: '"Asul", serif',
-                        fontWeight: 'normal',
-                        // fontStyle: 'italic',
-                        margin: 0
-                    }}
-                >
+                <Typography variant="h2">
                     A Character Creation & Leveling Companion App<br />
                     for Dungeons & Dragons 5th Edition
                 </Typography>

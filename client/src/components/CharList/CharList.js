@@ -28,7 +28,6 @@ const CharList = ({ characters = [] }) => {
             </Typography>
 
             <Paper
-                elevation={3}
                 sx={{
                     backgroundColor: 'background.default',
                 }}
@@ -45,7 +44,7 @@ const CharList = ({ characters = [] }) => {
                 ) : (
                     <List sx={{
                         maxHeight: '40vh',
-                        overflow: 'auto',
+                        overflow: 'scroll',
                         padding: 0,
                         border: 'none',
                     }}>
@@ -57,6 +56,7 @@ const CharList = ({ characters = [] }) => {
                                             <Typography
                                                 component="span"
                                                 className="character-item"
+                                                color="text.disabled"
                                                 sx={{
                                                     display: 'block',
                                                     width: '100%',
@@ -76,7 +76,7 @@ const CharList = ({ characters = [] }) => {
                     </List>
                 )}
             </Paper>
-        </Box>
+        </Box >
     );
 };
 

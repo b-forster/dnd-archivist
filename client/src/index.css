@@ -24,10 +24,8 @@ body {
   }
 }
 
-/* Style for character list items */
-.character-item {
-  color: #97bcf4;
-  /* Light blue (initial color) */
+Style for character list items .character-item {
+  color: 'text.primary';
 }
 
 .character-item:hover {

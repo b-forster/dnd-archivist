@@ -3,19 +3,19 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#61429e', // Purple
+            main: '#6f54af', // Purple
             light: '#7e57b5',
             dark: '#472e78',
             contrastText: '#fff',
         },
         secondary: {
-            main: '#97bcf4', // Light blue
+            main: '#2f63b8', // Medium blue
             light: '#4a8fd8',
             dark: '#0e4a8c',
             contrastText: '#fff',
         },
         info: {
-            main: '#1867b5', // Medium blue
+            main: '#183768', // Dark blue-gray
             light: '#b5d1ff',
             dark: '#6a8ac0',
             contrastText: '#000',
@@ -36,38 +36,39 @@ const theme = createTheme({
         },
         background: {
             default: '#111',
-            paper: '#eee',
+            paper: '#f7f7ff',
         },
         text: {
-            primary: '#97bcf4', // Light blue
-            secondary: '#1867b5', // Medium blue
+            primary: '#5f9eeb', // Medium blue
+            secondary: '#234d90', // Dark blue-gray
+            disabled: '#97bcf4', // Light blue
         },
     },
     typography: {
         fontFamily: '"Asul", "Helvetica", "Arial", sans-serif',
         h1: {
             fontFamily: '"Lugrasimo", cursive',
-            color: '#61429e', // Purple
+            color: '#6247aa', // Purple
         },
         h2: {
             fontFamily: '"Asul", serif',
             fontWeight: 'normal',
             fontSize: '1.5rem',
-            color: '#97bcf4', // Light blue
+            color: '#183768', // Dark blue-gray
 
         },
         h3: {
             fontFamily: '"Asul", "Helvetica", "Arial", sans-serif',
             fontSize: '2rem',
-            color: '#1867b5', // Medium blue
+            color: '#2f63b8', // Medium blue
         },
     },
     components: {
         MuiButton: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#1867b5', // Medium blue
-                    color: '#fff',
+                    backgroundColor: '#2f63b8', // Medium blue
+                    color: 'black',
                     borderRadius: 4,
                     textTransform: 'none',
                     '&.Mui-disabled': {
